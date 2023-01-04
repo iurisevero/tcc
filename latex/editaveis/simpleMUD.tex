@@ -1,0 +1,244 @@
+\chapter[Evolução e Manutenção SimpleMUD]{Evolução e Manutenção SimpleMUD}
+
+Este capítulo tem como objetivo relatar o processo de evolução e manutenção do código SimpleMUD, 
+disponibilizado no livro MUD Game Programming.
+
+\section{Primeiras alterações}
+
+As primeiras alterações realizadas no código foram feitas para corrigir erros de compilação. 
+A documentação do SimpleMUD define três passos para compilação do programa:
+
+\begin{enumerate}
+    \item \begin{lstlisting}
+        make libs
+    \end{lstlisting}
+    \item \begin{lstlisting}
+        make simplemud
+    \end{lstlisting}
+    \item \begin{lstlisting}
+        make link
+    \end{lstlisting}
+\end{enumerate}
+
+Sendo o primeiro para compilar as bibliotecas externas fornecidas pelo autor, 
+o segundo para compilar o MUD e o terceiro para linkar (substituir por ligar?) 
+os arquivos objeto gerados. Ao tentar executá-los diversos erros foram levantados.
+
+\subsection{make libs}
+
+O SimpleMUD utiliza três bibliotecas, fornecidas pelo autor, em sua codificação. 
+Uma para funções básicas, BasicLib (forma certa de citar?), uma para lidar com \textit{sockets}, 
+SocketLib, e uma para \textit{threads}, ThreadLib. Ao executar o comando de compilação 
+foram encontrados erros na biblioteca básica e na de \textit{sockets}.
+
+\subsubsection{BasicLib}
+
+Os erros levantados na biblioteca básica se concentravam em torno das funções matemáticas 
+de logarítmo, cosseno e seno, que são utilizadas no arquivo BasicLibRandom.h 
+(como citar esse arquivo direito?)(Bloco de código \ref{lst:mathError}).
+    
+\begin{lstlisting}[breaklines, label={lst:mathError}, caption={Exemplo de erros da biblioteca básica}]
+    ../Libraries/BasicLib/BasicLibRandom.h: In member function 'double BasicLib::normal_generator<inclusive, generator>::operator()()':
+    ../Libraries/BasicLib/BasicLibRandom.h:132:31: error: there are no arguments to 'log' that depend on a template parameter, so a declaration of 'log' must be available [-fpermissive]
+      132 |         m_rho = sqrt(-2 * log(1- m_rho2));
+          |                           ^~~
+
+    ../Libraries/BasicLib/BasicLibRandom.h:132:31: note: (if you use '-fpermissive', G++ will accept your code, but allowing the use of an undeclared name is deprecated)
+    ../Libraries/BasicLib/BasicLibRandom.h:140:36: error: there are no arguments to 'cos' that depend on a template parameter, so a declaration of 'cos' must be available [-fpermissive]
+      140 | turn m_rho * ( m_valid ? cos(2 * pi * m_rho1) : sin( 2 * pi * m_rho1)) * m_sigma + m_mean;
+          |                          ^~~
+
+    ../Libraries/BasicLib/BasicLibRandom.h:140:59: error: there are no arguments to 'sin' that depend on a template parameter, so a declaration of 'sin' must be available [-fpermissive]
+      140 | ? cos(2 * pi * m_rho1) : sin( 2 * pi * m_rho1)) * m_sigma + m_mean;
+          |                          ^~~
+\end{lstlisting}
+
+Para corrigí-los foi necessário incluir a biblioteca cmath (forma certa d citar?), 
+que faz parte da Biblioteca GNU ISO C++.
+
+\subsubsection{SocketLib}
+
+A biblioteca de \textit{sockets} apresentou dois erros recorrentes. O primeiro foi com a função 'memset',
+no arquivo SocketLibSocket.cpp, cujo a correção foi indicada pelo compilador (Bloco de código \ref{lst:memsetError}). 
+Após a inclusão da biblioteca cstring os erros foram resolvidos.
+
+\begin{lstlisting}[breaklines, label={lst:memsetError}, caption={Exemplo de erro levantado pela função 'memset'}]
+    ../Libraries/SocketLib/SocketLibSocket.cpp: In member function 'void SocketLib::DataSocket::Connect(SocketLib::ipaddress, SocketLib::port)':
+    ../Libraries/SocketLib/SocketLibSocket.cpp:141:9: error: 'memset' was not declared in this scope
+      141 |         memset( &(m_remoteinfo.sin_zero), 0, 8 );
+          |         ^~~~~~
+    ../Libraries/SocketLib/SocketLibSocket.cpp:9:1: note: 'memset' is defined in header '<cstring>'; did you forget to '#include <cstring>'?
+        8 | #include "SocketLibSocket.h"
+      +++ |+#include <cstring>
+        9 | 
+\end{lstlisting}
+
+O segundo erro foi resultado da declaração do tipo 'clistitr', apresentado no bloco de código \ref{lst:clistitrError}. 
+Como o próprio compilador aponta, a correção do erro é possível a partir da adição da 
+palavra chave \textit{typename} antes da definição de 'clistitr' e após a palavra chave \textit{typedef}. 
+Essa correção foi necessária devido à dependência no escopo do tipo definido\footnote{
+    Uma explicação resumida desse erro pode ser encontrada no StackOverflow, 
+    como resposta à pergunta \href{https://stackoverflow.com/questions/3311633/nested-templates-with-dependent-scope/3311640\#3311640}{Nested templates with dependent scope}
+}.
+
+\begin{lstlisting}[breaklines, label={lst:clistitrError}, caption={Exemplo de erro levantado pela declaração de 'clistitr'}]
+    In file included from ../Libraries/SocketLib/Connection.h:17,
+                        from ../Libraries/SocketLib/Telnet.h:14,
+                        from ../Libraries/SocketLib/Telnet.cpp:9:
+    ../Libraries/SocketLib/ConnectionManager.h: At global scope:
+    ../Libraries/SocketLib/ConnectionManager.h:37:13: error: need 'typename' before 'std::__cxx11::list<SocketLib::Connection<protocol> >::iterator' because 'std::__cxx11::list<SocketLib::Connection<protocol> >' is a dependent scope
+       37 |     typedef std::list< Connection<protocol> >::iterator clistitr;
+          |             ^~~
+          |             typename 
+    ../Libraries/SocketLib/ConnectionManager.h:110:17: error: 'clistitr' has not been declared
+      110 |     void Close( clistitr p_itr );
+          |                 ^~~~~~~~
+\end{lstlisting}
+
+O bloco de código \ref{lst:clistitrCorrection} apresenta a revisão feita.
+
+\begin{lstlisting}[breaklines, label={lst:clistitrCorrection}, caption={Revisão da declaração de 'clistitr'}, language=C++]
+    // ConnectionManager.h, linha 37
+    // Codigo com erro
+    typedef std::list< Connection<protocol> >::iterator clistitr;
+
+    // Codigo revisado
+    typedef typename std::list< Connection<protocol> >::iterator clistitr;
+\end{lstlisting}
+
+\subsection{make simplemud}
+
+Assim como a compilação das bibliotecas, o comando para compilar o MUD também apresentou 
+erros ao ser executado. Alguns semelhantes aos já resolvidos, como o exemplo apresentado 
+no bloco de código \ref{lst:knownError}, o que tornou a correção mais rápida.
+
+\begin{lstlisting}[breaklines, label={lst:knownError}, caption={Exemplo de erro conhecido}]
+    SimpleMUD/EntityDatabase.h:47:25: error: need 'typename' before 'SimpleMUD::EntityDatabase<datatype>::container::iterator' because 'SimpleMUD::EntityDatabase<datatype>::container' is a dependent scope
+      47 |         iterator( const container::iterator& p_itr ) // copy constructor
+         |                         ^~~~~~~~~
+         |                         typename 
+\end{lstlisting}
+
+Todos erros levantados na primeira tentativa de utilização do comando se referiam ao arquivo
+EntityDatabase.h e, em sua maioria, aconteciam ao tentar declarar o iterator do tipo 'container',
+bloco de código \ref{lst:itrError}, definido pelo próprio autor.
+
+\begin{lstlisting}[breaklines, label={lst:itrError}, caption={Exemplo de erro ao declarar iterador do tipo 'container'}]
+    SimpleMUD/EntityDatabase.h: In constructor 'SimpleMUD::EntityDatabase<datatype>::iterator::iterator(const int&)':
+    SimpleMUD/EntityDatabase.h:49:34: error: 'itr' was not declared in this scope
+      49 |             container::iterator& itr = *this; // also needed because VC6 sucks
+         |                                  ^~~
+\end{lstlisting}
+
+Dentre as diversas possibilidades de correção, a opção adotada foi a de definir um novo tipo para
+esse iterador, o tipo 'containeritr', seguindo o padrão adotado pelo autor nas bibliotecas utilizadas.
+Essa escolha foi feita devido a quantidade de locais onde o iterador era utilizado no código analisado.
+Após a definição do novo tipo, todos acessos à 'container::iterator' e  
+'std::map<entityid,datatype>::iterator' foram atualizados. O resultado das alterações pode ser visto nos
+blocos de código \ref{lst:containeritrOri} e \ref{lst:containeritrFix}.
+
+\begin{lstlisting}[breaklines, label={lst:containeritrOri}, caption={Acesso ao iterador do tipo 'container' antes da correção}, language=C++]
+    template< class datatype >
+    class EntityDatabase
+    {
+    public:
+
+        typedef std::map<entityid, datatype> container;
+
+        // --------------------------------------------------------------------
+        //  The inner iterator class, used to iterate through the database.
+        // --------------------------------------------------------------------
+        class iterator : public container::iterator
+        {
+        public:
+
+            // --------------------------------------------------------------------
+            // NOTE: the constructors are needed as a result of VC6 sucking.
+            // Have I mentioned that VC6 sucks yet?
+            // --------------------------------------------------------------------
+            iterator() {};  // default constructor
+            iterator( const container::iterator& p_itr ) // copy constructor
+            {
+                container::iterator& itr = *this; // also needed because VC6 sucks
+                itr = p_itr;
+            }
+\end{lstlisting}
+
+\begin{lstlisting}[breaklines, label={lst:containeritrFix}, caption={Correção do acesso ao iterador do tipo 'container'}, language=C++]
+    template< class datatype >
+    class EntityDatabase
+    {
+    public:
+
+        typedef std::map<entityid, datatype> container;
+        typedef typename std::map<entityid, datatype>::iterator containeritr;
+
+        // --------------------------------------------------------------------
+        //  The inner iterator class, used to iterate through the database.
+        // --------------------------------------------------------------------
+        class iterator : public containeritr
+        {
+        public:
+
+            // --------------------------------------------------------------------
+            // NOTE: the constructors are needed as a result of VC6 sucking.
+            // Have I mentioned that VC6 sucks yet?
+            // --------------------------------------------------------------------
+            iterator() {};  // default constructor
+            iterator( const containeritr& p_itr ) // copy constructor
+            {
+                containeritr& itr = *this; // also needed because VC6 sucks
+                itr = p_itr;
+            }
+\end{lstlisting}
+
+Após corrigidos os erros levantados pelo arquivo EntityDatabase.h, uma segunda tentatiza de 
+executar o comando foi feita e resultou em novos erros (bloco de código \ref{lst:templateError}).
+
+\begin{lstlisting}[breaklines, label={lst:templateError}, caption={Erros da sintaxe de template}]
+    g++ -I../Libraries *.cpp -c;
+    g++ -I../Libraries ./SimpleMUD/*.cpp -c;
+    ./SimpleMUD/EnemyDatabase.cpp:25:28: error: specializing member 'SimpleMUD::EntityDatabaseVector<SimpleMUD::EnemyTemplate>::m_vector' requires 'template<>' syntax
+       25 | std::vector<EnemyTemplate> EntityDatabaseVector<EnemyTemplate>::m_vector;
+          |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ./SimpleMUD/EnemyDatabase.cpp:28:27: error: specializing member 'SimpleMUD::EntityDatabase<SimpleMUD::Enemy>::m_map' requires 'template<>' syntax
+       28 | std::map<entityid, Enemy> EntityDatabase<Enemy>::m_map;
+       |                           ^~~~~~~~~~~~~~~~~~~~~
+    ./SimpleMUD/ItemDatabase.cpp:20:26: error: specializing member 'SimpleMUD::EntityDatabase<SimpleMUD::Item>::m_map' requires 'template<>' syntax
+       20 | std::map<entityid, Item> EntityDatabase<Item>::m_map;
+          |                          ^~~~~~~~~~~~~~~~~~~~
+    ./SimpleMUD/PlayerDatabase.cpp:24:28: error: specializing member 'SimpleMUD::EntityDatabase<SimpleMUD::Player>::m_map' requires 'template<>' syntax
+       24 | std::map<entityid, Player> EntityDatabase<Player>::m_map;
+          |                            ^~~~~~~~~~~~~~~~~~~~~~
+    ./SimpleMUD/RoomDatabase.cpp:25:19: error: specializing member 'SimpleMUD::EntityDatabaseVector<SimpleMUD::Room>::m_vector' requires 'template<>' syntax
+       25 | std::vector<Room> EntityDatabaseVector<Room>::m_vector;
+          |                   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+    ./SimpleMUD/StoreDatabase.cpp:20:27: error: specializing member 'SimpleMUD::EntityDatabase<SimpleMUD::Store>::m_map' requires 'template<>' syntax
+       20 | std::map<entityid, Store> EntityDatabase<Store>::m_map;
+          |                           ^~~~~~~~~~~~~~~~~~~~~
+    make: *** [makefile:24: simplemud] Error 1
+\end{lstlisting}
+
+Os novos erros foram decorrentes da forma como as varíaveis estáticas das entidades do bancos de dados
+foram declaradas nas classes que possuiam herança com \textit{EntityDatabase} ou com \textit{EntityDatabaseVector}. 
+Um mesmo erro para vários arquivos, como é possível observar no bloco de código \ref{lst:templateError}. 
+
+A solução adotada foi a adição da palavra chave 'template<>', utilizando como argumento a mesma 
+classe passada para o template da classe base\footnote{Solução encontrada na documentação da IBM 
+\href{https://www.ibm.com/docs/en/zos/2.4.0?topic=only-static-data-members-templates-c}
+{Static data members and templates (C++ only)}}, antes da declaração da variável. 
+O bloco de código \ref{lst:templateFix} apresenta o resultado da correção.
+
+\begin{lstlisting}[breaklines, label={lst:templateFix}, caption={Correção da declaração das variáveis estáticas}, language=C++]
+    // Codigo original, EnemyDatabase.cpp, linha 27
+    // declare the static map of the enemy instance database.
+    std::map<entityid, Enemy> EntityDatabase<Enemy>::m_map;
+
+    // Codigo corrigido, EnemyDatabase.cpp, linha 28
+    // declare the static map of the enemy instance database.
+    template< class Enemy >
+    std::map<entityid, Enemy> EntityDatabase<Enemy>::m_map;
+\end{lstlisting}
+
+O comando make simplemud funcionou corretamente após as alterações, assim como o comando make link.
+Não foram encontrados novos erros.
