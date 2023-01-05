@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+        ../Libraries/BasicLib/BasicLibRandom.h: In member \PYG{k}{function} \PYG{l+s+s1}{\PYGZsq{}double BasicLib::normal\PYGZus{}generator\PYGZlt{}inclusive, generator\PYGZgt{}::operator()()\PYGZsq{}}:
+        ../Libraries/BasicLib/BasicLibRandom.h:132:31: error: there are no arguments to \PYG{l+s+s1}{\PYGZsq{}log\PYGZsq{}} that depend on a template parameter, so a declaration of \PYG{l+s+s1}{\PYGZsq{}log\PYGZsq{}} must be available \PYG{o}{[}\PYGZhy{}fpermissive\PYG{o}{]}
+          \PYG{l+m}{132} \PYG{p}{|}         \PYG{n+nv}{m\PYGZus{}rho} \PYG{o}{=} sqrt\PYG{o}{(}\PYGZhy{}2 * log\PYG{o}{(}\PYG{l+m}{1}\PYGZhy{} m\PYGZus{}rho2\PYG{o}{))}\PYG{p}{;}
+              \PYG{p}{|}                           \PYGZca{}\PYGZti{}\PYGZti{}
+
+        ../Libraries/BasicLib/BasicLibRandom.h:132:31: note: \PYG{o}{(}\PYG{k}{if} you use \PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}fpermissive\PYGZsq{}}, G++ will accept your code, but allowing the use of an undeclared name is deprecated\PYG{o}{)}
+        ../Libraries/BasicLib/BasicLibRandom.h:140:36: error: there are no arguments to \PYG{l+s+s1}{\PYGZsq{}cos\PYGZsq{}} that depend on a template parameter, so a declaration of \PYG{l+s+s1}{\PYGZsq{}cos\PYGZsq{}} must be available \PYG{o}{[}\PYGZhy{}fpermissive\PYG{o}{]}
+          \PYG{l+m}{140} \PYG{p}{|} turn m\PYGZus{}rho * \PYG{o}{(} m\PYGZus{}valid ? cos\PYG{o}{(}\PYG{l+m}{2} * pi * m\PYGZus{}rho1\PYG{o}{)} : sin\PYG{o}{(} \PYG{l+m}{2} * pi * m\PYGZus{}rho1\PYG{o}{))} * m\PYGZus{}sigma + m\PYGZus{}mean\PYG{p}{;}
+              \PYG{p}{|}                          \PYGZca{}\PYGZti{}\PYGZti{}
+
+        ../Libraries/BasicLib/BasicLibRandom.h:140:59: error: there are no arguments to \PYG{l+s+s1}{\PYGZsq{}sin\PYGZsq{}} that depend on a template parameter, so a declaration of \PYG{l+s+s1}{\PYGZsq{}sin\PYGZsq{}} must be available \PYG{o}{[}\PYGZhy{}fpermissive\PYG{o}{]}
+          \PYG{l+m}{140} \PYG{p}{|} ? cos\PYG{o}{(}\PYG{l+m}{2} * pi * m\PYGZus{}rho1\PYG{o}{)} : sin\PYG{o}{(} \PYG{l+m}{2} * pi * m\PYGZus{}rho1\PYG{o}{))} * m\PYGZus{}sigma + m\PYGZus{}mean\PYG{p}{;}
+              \PYG{p}{|}                          \PYGZca{}\PYGZti{}\PYGZti{}
+\end{Verbatim}

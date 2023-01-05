@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{c+c1}{// EnemyDatabase.cpp, linha 27}
+    \PYG{c+c1}{// Codigo original}
+    \PYG{c+c1}{// declare the static map of the enemy instance database.}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{map}\PYG{o}{\PYGZlt{}}\PYG{n}{entityid}\PYG{p}{,} \PYG{n}{Enemy}\PYG{o}{\PYGZgt{}} \PYG{n}{EntityDatabase}\PYG{o}{\PYGZlt{}}\PYG{n}{Enemy}\PYG{o}{\PYGZgt{}::}\PYG{n}{m\PYGZus{}map}\PYG{p}{;}
+
+    \PYG{c+c1}{// Codigo corrigido}
+    \PYG{c+c1}{// declare the static map of the enemy instance database.}
+    \PYG{k}{template}\PYG{o}{\PYGZlt{}} \PYG{k}{class} \PYG{n+nc}{Enemy} \PYG{o}{\PYGZgt{}}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{map}\PYG{o}{\PYGZlt{}}\PYG{n}{entityid}\PYG{p}{,} \PYG{n}{Enemy}\PYG{o}{\PYGZgt{}} \PYG{n}{EntityDatabase}\PYG{o}{\PYGZlt{}}\PYG{n}{Enemy}\PYG{o}{\PYGZgt{}::}\PYG{n}{m\PYGZus{}map}\PYG{p}{;}
+\end{Verbatim}

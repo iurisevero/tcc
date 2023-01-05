@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+        ../Libraries/SocketLib/SocketLibSocket.cpp: In member \PYG{k}{function} \PYG{l+s+s1}{\PYGZsq{}void SocketLib::DataSocket::Connect(SocketLib::ipaddress, SocketLib::port)\PYGZsq{}}:
+        ../Libraries/SocketLib/SocketLibSocket.cpp:141:9: error: \PYG{l+s+s1}{\PYGZsq{}memset\PYGZsq{}} was not declared in this scope
+          \PYG{l+m}{141} \PYG{p}{|}         memset\PYG{o}{(} \PYG{p}{\PYGZam{}}\PYG{o}{(}m\PYGZus{}remoteinfo.sin\PYGZus{}zero\PYG{o}{)}, \PYG{l+m}{0}, \PYG{l+m}{8} \PYG{o}{)}\PYG{p}{;}
+              \PYG{p}{|}         \PYGZca{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}
+        ../Libraries/SocketLib/SocketLibSocket.cpp:9:1: note: \PYG{l+s+s1}{\PYGZsq{}memset\PYGZsq{}} is defined in header \PYG{l+s+s1}{\PYGZsq{}\PYGZlt{}cstring\PYGZgt{}\PYGZsq{}}\PYG{p}{;} did you forget to \PYG{l+s+s1}{\PYGZsq{}\PYGZsh{}include \PYGZlt{}cstring\PYGZgt{}\PYGZsq{}}?
+            \PYG{l+m}{8} \PYG{p}{|} \PYG{c+c1}{\PYGZsh{}include \PYGZdq{}SocketLibSocket.h\PYGZdq{}}
+          +++ \PYG{p}{|}+\PYGZsh{}include \PYGZlt{}cstring\PYGZgt{}
+            \PYG{l+m}{9} \PYG{p}{|}
+\end{Verbatim}

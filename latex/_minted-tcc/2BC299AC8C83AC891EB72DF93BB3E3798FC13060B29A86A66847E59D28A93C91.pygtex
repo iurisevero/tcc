@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    SimpleMUD/EntityDatabase.h:47:25: error: need \PYG{l+s+s1}{\PYGZsq{}typename\PYGZsq{}} before \PYG{l+s+s1}{\PYGZsq{}SimpleMUD::EntityDatabase\PYGZlt{}datatype\PYGZgt{}::container::iterator\PYGZsq{}} because \PYG{l+s+s1}{\PYGZsq{}SimpleMUD::EntityDatabase\PYGZlt{}datatype\PYGZgt{}::container\PYGZsq{}} is a dependent scope
+      \PYG{l+m}{47} \PYG{p}{|}         iterator\PYG{o}{(} const container::iterator\PYG{p}{\PYGZam{}} p\PYGZus{}itr \PYG{o}{)} // copy constructor
+         \PYG{p}{|}                         \PYGZca{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}
+         \PYG{p}{|}                         typename
+\end{Verbatim}

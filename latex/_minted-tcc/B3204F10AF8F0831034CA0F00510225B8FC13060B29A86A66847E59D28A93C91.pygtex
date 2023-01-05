@@ -1,0 +1,23 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+        g++ \PYGZhy{}I../Libraries *.cpp \PYGZhy{}c\PYG{p}{;}
+        g++ \PYGZhy{}I../Libraries ./SimpleMUD/*.cpp \PYGZhy{}c\PYG{p}{;}
+        ./SimpleMUD/EnemyDatabase.cpp:25:28: error: specializing member \PYG{l+s+s1}{\PYGZsq{}SimpleMUD::EntityDatabaseVector\PYGZlt{}SimpleMUD::EnemyTemplate\PYGZgt{}::m\PYGZus{}vector\PYGZsq{}} requires \PYG{l+s+s1}{\PYGZsq{}template\PYGZlt{}\PYGZgt{}\PYGZsq{}} syntax
+           \PYG{l+m}{25} \PYG{p}{|} std::vector\PYGZlt{}EnemyTemplate\PYGZgt{} EntityDatabaseVector\PYGZlt{}EnemyTemplate\PYGZgt{}::m\PYGZus{}vector\PYG{p}{;}
+              \PYG{p}{|}                            \PYGZca{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}
+        ./SimpleMUD/EnemyDatabase.cpp:28:27: error: specializing member \PYG{l+s+s1}{\PYGZsq{}SimpleMUD::EntityDatabase\PYGZlt{}SimpleMUD::Enemy\PYGZgt{}::m\PYGZus{}map\PYGZsq{}} requires \PYG{l+s+s1}{\PYGZsq{}template\PYGZlt{}\PYGZgt{}\PYGZsq{}} syntax
+           \PYG{l+m}{28} \PYG{p}{|} std::map\PYGZlt{}entityid, Enemy\PYGZgt{} EntityDatabase\PYGZlt{}Enemy\PYGZgt{}::m\PYGZus{}map\PYG{p}{;}
+           \PYG{p}{|}                           \PYGZca{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}
+        ./SimpleMUD/ItemDatabase.cpp:20:26: error: specializing member \PYG{l+s+s1}{\PYGZsq{}SimpleMUD::EntityDatabase\PYGZlt{}SimpleMUD::Item\PYGZgt{}::m\PYGZus{}map\PYGZsq{}} requires \PYG{l+s+s1}{\PYGZsq{}template\PYGZlt{}\PYGZgt{}\PYGZsq{}} syntax
+           \PYG{l+m}{20} \PYG{p}{|} std::map\PYGZlt{}entityid, Item\PYGZgt{} EntityDatabase\PYGZlt{}Item\PYGZgt{}::m\PYGZus{}map\PYG{p}{;}
+              \PYG{p}{|}                          \PYGZca{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}
+        ./SimpleMUD/PlayerDatabase.cpp:24:28: error: specializing member \PYG{l+s+s1}{\PYGZsq{}SimpleMUD::EntityDatabase\PYGZlt{}SimpleMUD::Player\PYGZgt{}::m\PYGZus{}map\PYGZsq{}} requires \PYG{l+s+s1}{\PYGZsq{}template\PYGZlt{}\PYGZgt{}\PYGZsq{}} syntax
+           \PYG{l+m}{24} \PYG{p}{|} std::map\PYGZlt{}entityid, Player\PYGZgt{} EntityDatabase\PYGZlt{}Player\PYGZgt{}::m\PYGZus{}map\PYG{p}{;}
+              \PYG{p}{|}                            \PYGZca{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}
+        ./SimpleMUD/RoomDatabase.cpp:25:19: error: specializing member \PYG{l+s+s1}{\PYGZsq{}SimpleMUD::EntityDatabaseVector\PYGZlt{}SimpleMUD::Room\PYGZgt{}::m\PYGZus{}vector\PYGZsq{}} requires \PYG{l+s+s1}{\PYGZsq{}template\PYGZlt{}\PYGZgt{}\PYGZsq{}} syntax
+           \PYG{l+m}{25} \PYG{p}{|} std::vector\PYGZlt{}Room\PYGZgt{} EntityDatabaseVector\PYGZlt{}Room\PYGZgt{}::m\PYGZus{}vector\PYG{p}{;}
+              \PYG{p}{|}                   \PYGZca{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}
+        ./SimpleMUD/StoreDatabase.cpp:20:27: error: specializing member \PYG{l+s+s1}{\PYGZsq{}SimpleMUD::EntityDatabase\PYGZlt{}SimpleMUD::Store\PYGZgt{}::m\PYGZus{}map\PYGZsq{}} requires \PYG{l+s+s1}{\PYGZsq{}template\PYGZlt{}\PYGZgt{}\PYGZsq{}} syntax
+           \PYG{l+m}{20} \PYG{p}{|} std::map\PYGZlt{}entityid, Store\PYGZgt{} EntityDatabase\PYGZlt{}Store\PYGZgt{}::m\PYGZus{}map\PYG{p}{;}
+              \PYG{p}{|}                           \PYGZca{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}
+        make: *** \PYG{o}{[}makefile:24: simplemud\PYG{o}{]} Error \PYG{l+m}{1}
+\end{Verbatim}

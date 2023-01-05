@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{c+c1}{// Game.cpp, linha 1296}
+    \PYG{c+c1}{// Código original}
+    \PYG{n}{EnemyDatabase}\PYG{o}{::}\PYG{n}{Delete}\PYG{p}{(} \PYG{n}{p\PYGZus{}enemy} \PYG{p}{);}
+
+    \PYG{c+c1}{// Código pós alterações}
+    \PYG{n}{EnemyDatabase}\PYG{o}{::}\PYG{n}{GetInstance}\PYG{p}{().}\PYG{n}{Delete}\PYG{p}{(} \PYG{n}{p\PYGZus{}enemy} \PYG{p}{);}
+\end{Verbatim}

@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+        In file included from ../Libraries/SocketLib/Connection.h:17,
+                            from ../Libraries/SocketLib/Telnet.h:14,
+                            from ../Libraries/SocketLib/Telnet.cpp:9:
+        ../Libraries/SocketLib/ConnectionManager.h: At global scope:
+        ../Libraries/SocketLib/ConnectionManager.h:37:13: error: need \PYG{l+s+s1}{\PYGZsq{}typename\PYGZsq{}} before \PYG{l+s+s1}{\PYGZsq{}std::\PYGZus{}\PYGZus{}cxx11::list\PYGZlt{}SocketLib::Connection\PYGZlt{}protocol\PYGZgt{} \PYGZgt{}::iterator\PYGZsq{}} because \PYG{l+s+s1}{\PYGZsq{}std::\PYGZus{}\PYGZus{}cxx11::list\PYGZlt{}SocketLib::Connection\PYGZlt{}protocol\PYGZgt{} \PYGZgt{}\PYGZsq{}} is a dependent scope
+           \PYG{l+m}{37} \PYG{p}{|}     typedef std::list\PYGZlt{} Connection\PYGZlt{}protocol\PYGZgt{} \PYGZgt{}::iterator clistitr\PYG{p}{;}
+              \PYG{p}{|}             \PYGZca{}\PYGZti{}\PYGZti{}
+              \PYG{p}{|}             typename
+        ../Libraries/SocketLib/ConnectionManager.h:110:17: error: \PYG{l+s+s1}{\PYGZsq{}clistitr\PYGZsq{}} has not been declared
+          \PYG{l+m}{110} \PYG{p}{|}     void Close\PYG{o}{(} clistitr p\PYGZus{}itr \PYG{o}{)}\PYG{p}{;}
+              \PYG{p}{|}                 \PYGZca{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}
+\end{Verbatim}

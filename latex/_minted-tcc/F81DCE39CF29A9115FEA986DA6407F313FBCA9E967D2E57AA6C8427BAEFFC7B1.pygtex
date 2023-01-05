@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+        \PYG{c+c1}{// ConnectionManager.h, linha 37}
+        \PYG{c+c1}{// Codigo com erro}
+        \PYG{k}{typedef} \PYG{n}{std}\PYG{o}{::}\PYG{n}{list}\PYG{o}{\PYGZlt{}} \PYG{n}{Connection}\PYG{o}{\PYGZlt{}}\PYG{n}{protocol}\PYG{o}{\PYGZgt{}} \PYG{o}{\PYGZgt{}::}\PYG{n}{iterator} \PYG{n}{clistitr}\PYG{p}{;}
+
+        \PYG{c+c1}{// Codigo revisado}
+        \PYG{k}{typedef} \PYG{k}{typename} \PYG{n}{std}\PYG{o}{::}\PYG{n}{list}\PYG{o}{\PYGZlt{}} \PYG{n}{Connection}\PYG{o}{\PYGZlt{}}\PYG{n}{protocol}\PYG{o}{\PYGZgt{}} \PYG{o}{\PYGZgt{}::}\PYG{n}{iterator} \PYG{n}{clistitr}\PYG{p}{;}
+\end{Verbatim}

@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+        SimpleMUD/EntityDatabase.h: In constructor \PYG{l+s+s1}{\PYGZsq{}SimpleMUD::EntityDatabase\PYGZlt{}datatype\PYGZgt{}::iterator::iterator(const int\PYGZam{})\PYGZsq{}}:
+        SimpleMUD/EntityDatabase.h:49:34: error: \PYG{l+s+s1}{\PYGZsq{}itr\PYGZsq{}} was not declared in this scope
+          \PYG{l+m}{49} \PYG{p}{|}             container::iterator\PYG{p}{\PYGZam{}} \PYG{n+nv}{itr} \PYG{o}{=} *this\PYG{p}{;} // also needed because VC6 sucks
+             \PYG{p}{|}                                  \PYGZca{}\PYGZti{}\PYGZti{}
+\end{Verbatim}

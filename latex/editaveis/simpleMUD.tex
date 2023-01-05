@@ -9,15 +9,9 @@ As primeiras alterações realizadas no código foram feitas para corrigir erros
 A documentação do SimpleMUD define três passos para compilação do programa:
 
 \begin{enumerate}
-    \item \begin{lstlisting}
-        make libs
-    \end{lstlisting}
-    \item \begin{lstlisting}
-        make simplemud
-    \end{lstlisting}
-    \item \begin{lstlisting}
-        make link
-    \end{lstlisting}
+    \item \mint{bash}|make libs|
+    \item \mint{bash}|make simplemud|
+    \item \mint{bash}|make link|
 \end{enumerate}
 
 Sendo o primeiro para compilar as bibliotecas externas fornecidas pelo autor, 
@@ -36,22 +30,31 @@ foram encontrados erros na biblioteca básica e na de \textit{sockets}.
 Os erros levantados na biblioteca básica se concentravam em torno das funções matemáticas 
 de logarítmo, cosseno e seno, que são utilizadas no arquivo BasicLibRandom.h 
 (como citar esse arquivo direito?)(Bloco de código \ref{lst:mathError}).
-    
-\begin{lstlisting}[breaklines, label={lst:mathError}, caption={Exemplo de erros da biblioteca básica}]
+
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{bash}
     ../Libraries/BasicLib/BasicLibRandom.h: In member function 'double BasicLib::normal_generator<inclusive, generator>::operator()()':
     ../Libraries/BasicLib/BasicLibRandom.h:132:31: error: there are no arguments to 'log' that depend on a template parameter, so a declaration of 'log' must be available [-fpermissive]
       132 |         m_rho = sqrt(-2 * log(1- m_rho2));
           |                           ^~~
-
     ../Libraries/BasicLib/BasicLibRandom.h:132:31: note: (if you use '-fpermissive', G++ will accept your code, but allowing the use of an undeclared name is deprecated)
     ../Libraries/BasicLib/BasicLibRandom.h:140:36: error: there are no arguments to 'cos' that depend on a template parameter, so a declaration of 'cos' must be available [-fpermissive]
       140 | turn m_rho * ( m_valid ? cos(2 * pi * m_rho1) : sin( 2 * pi * m_rho1)) * m_sigma + m_mean;
           |                          ^~~
-
     ../Libraries/BasicLib/BasicLibRandom.h:140:59: error: there are no arguments to 'sin' that depend on a template parameter, so a declaration of 'sin' must be available [-fpermissive]
       140 | ? cos(2 * pi * m_rho1) : sin( 2 * pi * m_rho1)) * m_sigma + m_mean;
           |                          ^~~
-\end{lstlisting}
+    \end{minted}
+\caption{Exemplo de erros da biblioteca básica}
+\label{lst:mathError}
+\end{listing}
+        
 
 Para corrigí-los foi necessário incluir a biblioteca cmath (forma certa d citar?), 
 que faz parte da Biblioteca GNU ISO C++.
@@ -62,7 +65,14 @@ A biblioteca de \textit{sockets} apresentou dois erros recorrentes. O primeiro f
 no arquivo SocketLibSocket.cpp, cujo a correção foi indicada pelo compilador (Bloco de código \ref{lst:memsetError}). 
 Após a inclusão da biblioteca cstring os erros foram resolvidos.
 
-\begin{lstlisting}[breaklines, label={lst:memsetError}, caption={Exemplo de erro levantado pela função 'memset'}]
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{bash}
     ../Libraries/SocketLib/SocketLibSocket.cpp: In member function 'void SocketLib::DataSocket::Connect(SocketLib::ipaddress, SocketLib::port)':
     ../Libraries/SocketLib/SocketLibSocket.cpp:141:9: error: 'memset' was not declared in this scope
       141 |         memset( &(m_remoteinfo.sin_zero), 0, 8 );
@@ -71,17 +81,26 @@ Após a inclusão da biblioteca cstring os erros foram resolvidos.
         8 | #include "SocketLibSocket.h"
       +++ |+#include <cstring>
         9 | 
-\end{lstlisting}
+    \end{minted}
+\caption{Exemplo de erro levantado pela função 'memset'}
+\label{lst:memsetError}
+\end{listing}
 
 O segundo erro foi resultado da declaração do tipo 'clistitr', apresentado no bloco de código \ref{lst:clistitrError}. 
 Como o próprio compilador aponta, a correção do erro é possível a partir da adição da 
 palavra chave \textit{typename} antes da definição de 'clistitr' e após a palavra chave \textit{typedef}. 
 Essa correção foi necessária devido à dependência no escopo do tipo definido\footnote{
-    Uma explicação resumida desse erro pode ser encontrada no StackOverflow, 
-    como resposta à pergunta \href{https://stackoverflow.com/questions/3311633/nested-templates-with-dependent-scope/3311640\#3311640}{Nested templates with dependent scope}
+    Uma explicação resumida desse erro pode ser encontrada no StackOverflow, \href{https://stackoverflow.com/questions/3311633/nested-templates-with-dependent-scope/3311640\#3311640}{Nested templates with dependent scope}
 }.
 
-\begin{lstlisting}[breaklines, label={lst:clistitrError}, caption={Exemplo de erro levantado pela declaração de 'clistitr'}]
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{bash}
     In file included from ../Libraries/SocketLib/Connection.h:17,
                         from ../Libraries/SocketLib/Telnet.h:14,
                         from ../Libraries/SocketLib/Telnet.cpp:9:
@@ -93,18 +112,31 @@ Essa correção foi necessária devido à dependência no escopo do tipo definid
     ../Libraries/SocketLib/ConnectionManager.h:110:17: error: 'clistitr' has not been declared
       110 |     void Close( clistitr p_itr );
           |                 ^~~~~~~~
-\end{lstlisting}
+    \end{minted}
+\caption{Exemplo de erro levantado pela declaração de 'clistitr'}
+\label{lst:clistitrError}
+\end{listing}
 
 O bloco de código \ref{lst:clistitrCorrection} apresenta a revisão feita.
 
-\begin{lstlisting}[breaklines, label={lst:clistitrCorrection}, caption={Revisão da declaração de 'clistitr'}, language=C++]
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{cpp}
     // ConnectionManager.h, linha 37
-    // Codigo com erro
+    // Código com erro
     typedef std::list< Connection<protocol> >::iterator clistitr;
 
-    // Codigo revisado
+    // Código revisado
     typedef typename std::list< Connection<protocol> >::iterator clistitr;
-\end{lstlisting}
+    \end{minted}
+\caption{Revisão da declaração de 'clistitr'}
+\label{lst:clistitrCorrection}
+\end{listing}
 
 \subsection{make simplemud}
 
@@ -112,23 +144,43 @@ Assim como a compilação das bibliotecas, o comando para compilar o MUD também
 erros ao ser executado. Alguns semelhantes aos já resolvidos, como o exemplo apresentado 
 no bloco de código \ref{lst:knownError}, o que tornou a correção mais rápida.
 
-\begin{lstlisting}[breaklines, label={lst:knownError}, caption={Exemplo de erro conhecido}]
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{bash}
     SimpleMUD/EntityDatabase.h:47:25: error: need 'typename' before 'SimpleMUD::EntityDatabase<datatype>::container::iterator' because 'SimpleMUD::EntityDatabase<datatype>::container' is a dependent scope
       47 |         iterator( const container::iterator& p_itr ) // copy constructor
          |                         ^~~~~~~~~
          |                         typename 
-\end{lstlisting}
+    \end{minted}
+\caption{Exemplo de erro conhecido}
+\label{lst:knownError}
+\end{listing}
 
 Todos erros levantados na primeira tentativa de utilização do comando se referiam ao arquivo
 EntityDatabase.h e, em sua maioria, aconteciam ao tentar declarar o iterator do tipo 'container',
 bloco de código \ref{lst:itrError}, definido pelo próprio autor.
 
-\begin{lstlisting}[breaklines, label={lst:itrError}, caption={Exemplo de erro ao declarar iterador do tipo 'container'}]
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{bash}
     SimpleMUD/EntityDatabase.h: In constructor 'SimpleMUD::EntityDatabase<datatype>::iterator::iterator(const int&)':
     SimpleMUD/EntityDatabase.h:49:34: error: 'itr' was not declared in this scope
       49 |             container::iterator& itr = *this; // also needed because VC6 sucks
          |                                  ^~~
-\end{lstlisting}
+    \end{minted}
+\caption{Exemplo de erro ao declarar iterador do tipo 'container'}
+\label{lst:itrError}
+\end{listing}
 
 Dentre as diversas possibilidades de correção, a opção adotada foi a de definir um novo tipo para
 esse iterador, o tipo 'containeritr', seguindo o padrão adotado nas bibliotecas utilizadas.
@@ -137,7 +189,15 @@ Após a definição do novo tipo, todos acessos à 'container::iterator' e
 'std::map<entityid,datatype>::iterator' foram atualizados. O resultado das alterações pode ser visto nos
 blocos de código \ref{lst:containeritrOri} e \ref{lst:containeritrFix}.
 
-\begin{lstlisting}[breaklines, label={lst:containeritrOri}, caption={Acesso ao iterador do tipo 'container' antes da correção}, language=C++]
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{cpp}
+    // EntityDatabase.h
     template< class datatype >
     class EntityDatabase
     {
@@ -162,9 +222,20 @@ blocos de código \ref{lst:containeritrOri} e \ref{lst:containeritrFix}.
                 container::iterator& itr = *this; // also needed because VC6 sucks
                 itr = p_itr;
             }
-\end{lstlisting}
+    \end{minted}
+\caption{Acesso ao iterador do tipo 'container' antes da correção}
+\label{lst:containeritrOri}
+\end{listing}
 
-\begin{lstlisting}[breaklines, label={lst:containeritrFix}, caption={Correção do acesso ao iterador do tipo 'container'}, language=C++]
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{cpp}
+    // EntityDatabase.h
     template< class datatype >
     class EntityDatabase
     {
@@ -190,12 +261,23 @@ blocos de código \ref{lst:containeritrOri} e \ref{lst:containeritrFix}.
                 containeritr& itr = *this; // also needed because VC6 sucks
                 itr = p_itr;
             }
-\end{lstlisting}
+    \end{minted}
+\caption{Correção do acesso ao iterador do tipo 'container'}
+\label{lst:containeritrFix}
+\end{listing}
+
 
 Após corrigidos os erros levantados pelo arquivo EntityDatabase.h, uma segunda tentatiza de 
 executar o comando foi feita e resultou em novos erros (bloco de código \ref{lst:templateError}).
 
-\begin{lstlisting}[breaklines, label={lst:templateError}, caption={Erros da sintaxe de template}]
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{bash}
     g++ -I../Libraries *.cpp -c;
     g++ -I../Libraries ./SimpleMUD/*.cpp -c;
     ./SimpleMUD/EnemyDatabase.cpp:25:28: error: specializing member 'SimpleMUD::EntityDatabaseVector<SimpleMUD::EnemyTemplate>::m_vector' requires 'template<>' syntax
@@ -217,7 +299,10 @@ executar o comando foi feita e resultou em novos erros (bloco de código \ref{ls
        20 | std::map<entityid, Store> EntityDatabase<Store>::m_map;
           |                           ^~~~~~~~~~~~~~~~~~~~~
     make: *** [makefile:24: simplemud] Error 1
-\end{lstlisting}
+    \end{minted}
+\caption{Erros da sintaxe de template}
+\label{lst:templateError}
+\end{listing}
 
 Os novos erros foram decorrentes da forma como as varíaveis estáticas das entidades do bancos de dados
 foram declaradas nas classes que possuiam herança com \textit{EntityDatabase} ou com \textit{EntityDatabaseVector}. 
@@ -229,16 +314,27 @@ classe passada para o template da classe base\footnote{Solução encontrada na d
 {Static data members and templates (C++ only)}}, antes da declaração da variável. 
 O bloco de código \ref{lst:templateFix} apresenta o resultado da correção.
 
-\begin{lstlisting}[breaklines, label={lst:templateFix}, caption={Correção da declaração das variáveis estáticas}, language=C++]
-    // Codigo original, EnemyDatabase.cpp, linha 27
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{cpp}
+    // EnemyDatabase.cpp, linha 27
+    // Código original
     // declare the static map of the enemy instance database.
     std::map<entityid, Enemy> EntityDatabase<Enemy>::m_map;
 
-    // Codigo corrigido, EnemyDatabase.cpp, linha 28
+    // Código corrigido
     // declare the static map of the enemy instance database.
     template< class Enemy >
     std::map<entityid, Enemy> EntityDatabase<Enemy>::m_map;
-\end{lstlisting}
+    \end{minted}
+\caption{Correção da declaração das variáveis estáticas}
+\label{lst:templateFix}
+\end{listing}
 
 O comando make simplemud funcionou corretamente após as alterações, assim como o comando make link.
 Não foram encontrados novos erros.
@@ -277,35 +373,49 @@ de como foram feitas as implementações de Penton, enquanto os códigos
 \ref{lst:enemyDatabaseHeaderUpdate}-\ref{lst:enemyDatabaseUpdate} apresentam as modificações realizadas.
 
 \begin{listing}[!ht]
-    \begin{minted}{cpp}
-        class EnemyTemplateDatabase : public EntityDatabaseVector<EnemyTemplate>
-        {
-        public:
-            static void Load();
-        };  // end class EnemyTemplateDatabase
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{cpp}
+    // EnemyDatabase.h
+    class EnemyTemplateDatabase : public EntityDatabaseVector<EnemyTemplate>
+    {
+    public:
+        static void Load();
+    };  // end class EnemyTemplateDatabase
 
 
-        class EnemyDatabase : public EntityDatabase<Enemy>
-        {
-        public:
-            static void Create( entityid p_template, room p_room );
-            static void Delete( enemy p_enemy );
-            static void Load();
-            static void Save();
+    class EnemyDatabase : public EntityDatabase<Enemy>
+    {
+    public:
+        static void Create( entityid p_template, room p_room );
+        static void Delete( enemy p_enemy );
+        static void Load();
+        static void Save();
 
-        };  // end class EnemyDatabase
+    };  // end class EnemyDatabase
     \end{minted}
 \caption{Cabeçalho das classes EnemyTemplateDatabase e EnemyDatabase originais}
 \label{lst:enemyDatabaseHeaderOri}
 \end{listing}
 
 \begin{listing}[!ht]
-    \begin{minted}{cpp}
-        // declare the static vector of the enemy template database.
-        std::vector<EnemyTemplate> EntityDatabaseVector<EnemyTemplate>::m_vector;
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{cpp}
+    // EnemyDatabase.cpp
+    // declare the static vector of the enemy template database.
+    std::vector<EnemyTemplate> EntityDatabaseVector<EnemyTemplate>::m_vector;
 
-        // declare the static map of the enemy instance database.
-        std::map<entityid, Enemy> EntityDatabase<Enemy>::m_map;
+    // declare the static map of the enemy instance database.
+    std::map<entityid, Enemy> EntityDatabase<Enemy>::m_map;
     \end{minted}
 \caption{Classes EnemyTemplateDatabase e EnemyDatabase originais}
 \label{lst:enemyDatabaseOri}
@@ -319,58 +429,72 @@ Outra peculiaridade dessa implementação original é a necessidade de todas fun
 não há instancia das classes. Ambas situações foram extinguidas com a nova implementação.
 
 \begin{listing}[!ht]
-    \begin{minted}{cpp}
-        class EnemyTemplateDatabase : public EntityDatabaseVector<EnemyTemplate>
-        {
-        public:
-            static EnemyTemplateDatabase& GetInstance();
-            EnemyTemplateDatabase(EnemyTemplateDatabase const&) = delete;
-            EnemyTemplateDatabase(EnemyTemplateDatabase&&) = delete;
-            EnemyTemplateDatabase& operator=(EnemyTemplateDatabase const&) = delete;
-            EnemyTemplateDatabase& operator=(EnemyTemplateDatabase &&) = delete;
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{cpp}
+    // EnemyDatabase.h
+    class EnemyTemplateDatabase : public EntityDatabaseVector<EnemyTemplate>
+    {
+    public:
+        static EnemyTemplateDatabase& GetInstance();
+        EnemyTemplateDatabase(EnemyTemplateDatabase const&) = delete;
+        EnemyTemplateDatabase(EnemyTemplateDatabase&&) = delete;
+        EnemyTemplateDatabase& operator=(EnemyTemplateDatabase const&) = delete;
+        EnemyTemplateDatabase& operator=(EnemyTemplateDatabase &&) = delete;
 
-            void Load();
+        void Load();
 
-        private:
-            EnemyTemplateDatabase(){}
-        };  // end class EnemyTemplateDatabase
+    private:
+        EnemyTemplateDatabase(){}
+    };  // end class EnemyTemplateDatabase
 
 
-        class EnemyDatabase : public EntityDatabase<Enemy>
-        {
-        public:
-            static EnemyDatabase& GetInstance();
-            EnemyDatabase(EnemyDatabase const&) = delete;
-            EnemyDatabase(EnemyDatabase&&) = delete;
-            EnemyDatabase& operator=(EnemyDatabase const&) = delete;
-            EnemyDatabase& operator=(EnemyDatabase &&) = delete;
+    class EnemyDatabase : public EntityDatabase<Enemy>
+    {
+    public:
+        static EnemyDatabase& GetInstance();
+        EnemyDatabase(EnemyDatabase const&) = delete;
+        EnemyDatabase(EnemyDatabase&&) = delete;
+        EnemyDatabase& operator=(EnemyDatabase const&) = delete;
+        EnemyDatabase& operator=(EnemyDatabase &&) = delete;
 
-            void Create( entityid p_template, room p_room );
-            void Delete( enemy p_enemy );
-            void Load();
-            void Save();
+        void Create( entityid p_template, room p_room );
+        void Delete( enemy p_enemy );
+        void Load();
+        void Save();
 
-        private:
-            EnemyDatabase(){}
-        };  // end class EnemyDatabase
+    private:
+        EnemyDatabase(){}
+    };  // end class EnemyDatabase
     \end{minted}
 \caption{Cabeçalho das classes EnemyTemplateDatabase e EnemyDatabase atualizadas}
 \label{lst:enemyDatabaseHeaderUpdate}
 \end{listing}
 
 \begin{listing}[!ht]
-    \begin{minted}{cpp}
-        EnemyTemplateDatabase& EnemyTemplateDatabase::GetInstance()
-        {
-            static EnemyTemplateDatabase enemyTemplateDatabase;
-            return enemyTemplateDatabase;
-        }
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{cpp}
+    // EnemyDatabase.cpp
+    EnemyTemplateDatabase& EnemyTemplateDatabase::GetInstance()
+    {
+        static EnemyTemplateDatabase enemyTemplateDatabase;
+        return enemyTemplateDatabase;
+    }
 
-        EnemyDatabase& EnemyDatabase::GetInstance()
-        {
-            static EnemyDatabase enemyDatabase;
-            return enemyDatabase;
-        }
+    EnemyDatabase& EnemyDatabase::GetInstance()
+    {
+        static EnemyDatabase enemyDatabase;
+        return enemyDatabase;
+    }
     \end{minted}
 \caption{Classes EnemyTemplateDatabase e EnemyDatabase atualizadas}
 \label{lst:enemyDatabaseUpdate}
@@ -381,12 +505,19 @@ as entidades do banco de dados passou ser feito a partir da chamada GetInstance 
 Diversas alterações pequenas foram feitas em outros arquivos para adaptá-los ao novo padrão adotado.
 
 \begin{listing}[!ht]
-    \begin{minted}{cpp}
-        // Código original, Game.cpp, linha 1296
-        EnemyDatabase::Delete( p_enemy );
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{cpp}
+    // Game.cpp, linha 1296
+    // Código original
+    EnemyDatabase::Delete( p_enemy );
 
-        // Código pós alterações
-        EnemyDatabase::GetInstance().Delete( p_enemy );
+    // Código pós alterações
+    EnemyDatabase::GetInstance().Delete( p_enemy );
     \end{minted}
 \caption{Exemplo de deleção de um inimigo pré e pós da atualização das entidades}
 \label{lst:enemyDelete}

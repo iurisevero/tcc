@@ -1,0 +1,36 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{c+c1}{// EnemyDatabase.h}
+    \PYG{k}{class} \PYG{n+nc}{EnemyTemplateDatabase} \PYG{o}{:} \PYG{k}{public} \PYG{n}{EntityDatabaseVector}\PYG{o}{\PYGZlt{}}\PYG{n}{EnemyTemplate}\PYG{o}{\PYGZgt{}}
+    \PYG{p}{\PYGZob{}}
+    \PYG{k}{public}\PYG{o}{:}
+        \PYG{k}{static} \PYG{n}{EnemyTemplateDatabase}\PYG{o}{\PYGZam{}} \PYG{n}{GetInstance}\PYG{p}{();}
+        \PYG{n}{EnemyTemplateDatabase}\PYG{p}{(}\PYG{n}{EnemyTemplateDatabase} \PYG{k}{const}\PYG{o}{\PYGZam{}}\PYG{p}{)} \PYG{o}{=} \PYG{k}{delete}\PYG{p}{;}
+        \PYG{n}{EnemyTemplateDatabase}\PYG{p}{(}\PYG{n}{EnemyTemplateDatabase}\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{p}{)} \PYG{o}{=} \PYG{k}{delete}\PYG{p}{;}
+        \PYG{n}{EnemyTemplateDatabase}\PYG{o}{\PYGZam{}} \PYG{k}{operator}\PYG{o}{=}\PYG{p}{(}\PYG{n}{EnemyTemplateDatabase} \PYG{k}{const}\PYG{o}{\PYGZam{}}\PYG{p}{)} \PYG{o}{=} \PYG{k}{delete}\PYG{p}{;}
+        \PYG{n}{EnemyTemplateDatabase}\PYG{o}{\PYGZam{}} \PYG{k}{operator}\PYG{o}{=}\PYG{p}{(}\PYG{n}{EnemyTemplateDatabase} \PYG{o}{\PYGZam{}\PYGZam{}}\PYG{p}{)} \PYG{o}{=} \PYG{k}{delete}\PYG{p}{;}
+
+        \PYG{k+kt}{void} \PYG{n+nf}{Load}\PYG{p}{();}
+
+    \PYG{k}{private}\PYG{o}{:}
+        \PYG{n}{EnemyTemplateDatabase}\PYG{p}{()\PYGZob{}\PYGZcb{}}
+    \PYG{p}{\PYGZcb{};}  \PYG{c+c1}{// end class EnemyTemplateDatabase}
+
+
+    \PYG{k}{class} \PYG{n+nc}{EnemyDatabase} \PYG{o}{:} \PYG{k}{public} \PYG{n}{EntityDatabase}\PYG{o}{\PYGZlt{}}\PYG{n}{Enemy}\PYG{o}{\PYGZgt{}}
+    \PYG{p}{\PYGZob{}}
+    \PYG{k}{public}\PYG{o}{:}
+        \PYG{k}{static} \PYG{n}{EnemyDatabase}\PYG{o}{\PYGZam{}} \PYG{n}{GetInstance}\PYG{p}{();}
+        \PYG{n}{EnemyDatabase}\PYG{p}{(}\PYG{n}{EnemyDatabase} \PYG{k}{const}\PYG{o}{\PYGZam{}}\PYG{p}{)} \PYG{o}{=} \PYG{k}{delete}\PYG{p}{;}
+        \PYG{n}{EnemyDatabase}\PYG{p}{(}\PYG{n}{EnemyDatabase}\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{p}{)} \PYG{o}{=} \PYG{k}{delete}\PYG{p}{;}
+        \PYG{n}{EnemyDatabase}\PYG{o}{\PYGZam{}} \PYG{k}{operator}\PYG{o}{=}\PYG{p}{(}\PYG{n}{EnemyDatabase} \PYG{k}{const}\PYG{o}{\PYGZam{}}\PYG{p}{)} \PYG{o}{=} \PYG{k}{delete}\PYG{p}{;}
+        \PYG{n}{EnemyDatabase}\PYG{o}{\PYGZam{}} \PYG{k}{operator}\PYG{o}{=}\PYG{p}{(}\PYG{n}{EnemyDatabase} \PYG{o}{\PYGZam{}\PYGZam{}}\PYG{p}{)} \PYG{o}{=} \PYG{k}{delete}\PYG{p}{;}
+
+        \PYG{k+kt}{void} \PYG{n+nf}{Create}\PYG{p}{(} \PYG{n}{entityid} \PYG{n}{p\PYGZus{}template}\PYG{p}{,} \PYG{n}{room} \PYG{n}{p\PYGZus{}room} \PYG{p}{);}
+        \PYG{k+kt}{void} \PYG{n+nf}{Delete}\PYG{p}{(} \PYG{n}{enemy} \PYG{n}{p\PYGZus{}enemy} \PYG{p}{);}
+        \PYG{k+kt}{void} \PYG{n+nf}{Load}\PYG{p}{();}
+        \PYG{k+kt}{void} \PYG{n+nf}{Save}\PYG{p}{();}
+
+    \PYG{k}{private}\PYG{o}{:}
+        \PYG{n}{EnemyDatabase}\PYG{p}{()\PYGZob{}\PYGZcb{}}
+    \PYG{p}{\PYGZcb{};}  \PYG{c+c1}{// end class EnemyDatabase}
+\end{Verbatim}
