@@ -26,7 +26,7 @@ os arquivos objeto gerados. Ao tentar executá-los diversos erros foram levantad
 
 \subsection{make libs}
 
-O SimpleMUD utiliza três bibliotecas, fornecidas pelo autor, em sua codificação. 
+O SimpleMUD utiliza três bibliotecas em sua codificação. 
 Uma para funções básicas, BasicLib (forma certa de citar?), uma para lidar com \textit{sockets}, 
 SocketLib, e uma para \textit{threads}, ThreadLib. Ao executar o comando de compilação 
 foram encontrados erros na biblioteca básica e na de \textit{sockets}.
@@ -131,7 +131,7 @@ bloco de código \ref{lst:itrError}, definido pelo próprio autor.
 \end{lstlisting}
 
 Dentre as diversas possibilidades de correção, a opção adotada foi a de definir um novo tipo para
-esse iterador, o tipo 'containeritr', seguindo o padrão adotado pelo autor nas bibliotecas utilizadas.
+esse iterador, o tipo 'containeritr', seguindo o padrão adotado nas bibliotecas utilizadas.
 Essa escolha foi feita devido a quantidade de locais onde o iterador era utilizado no código analisado.
 Após a definição do novo tipo, todos acessos à 'container::iterator' e  
 'std::map<entityid,datatype>::iterator' foram atualizados. O resultado das alterações pode ser visto nos
@@ -242,3 +242,152 @@ O bloco de código \ref{lst:templateFix} apresenta o resultado da correção.
 
 O comando make simplemud funcionou corretamente após as alterações, assim como o comando make link.
 Não foram encontrados novos erros.
+
+Após conseguir completar o processo de compilação do código e execução do MUD, 
+foi iniciada uma análise em busca de trechos do código que poderiam ser atualizados
+para seguirem os padrões estabelecidos no \textit{C++ Core Guidelines}.
+
+
+\section{Alterações arquiteturais do Banco de Dados}
+
+Para o banco de dados, Peton utiliza uma abordagem com dicionários, vetores, classes e funções estáticos, 
+auxiliados por arquivos para persistir os dados. Dessa forma ele conseguiu uma estrutura que o 
+permitiu acessar os dados de forma global e sem a necessidade de instânciar objetos das classes 
+criadas \cite{penton2003mud}.
+
+\begin{citacao}
+    Because the classes are static, you should be able to access
+    a single database within the game globally, without
+    worrying about instantiating it.\cite{penton2003mud}
+\end{citacao}
+
+No entanto, essa abordagem é ingênua de implementação do padrão \textit{Singleton} 
+e desencadeia alguns problemas, como a ordem de inicialização de objetos estáticos 
+globais em unidades de compilação diferentes ser indefinida, o que pode resultar
+em um objeto global referindo-se a outro quando este ainda não foi inicializado \cite{nesteruk2018design}.
+
+A implementação clássica do padrão \textit{Singleton}, sugerida por Nesteruk, é uma forma
+de melhorar a implementação feita por Peton, tornando-a mais segura e sem perder sua intenção inicial.
+Essa foi a opção adotada para melhorar o código analisado.
+
+Foram feitas alterações significativas nas classes EntityDatabase, EntityDatabaseVector, 
+EnemyTemplateDatabase, EnemyDatabase, ItemDatabase, PlayerDatabase, RoomDatabase e StoreDatabase. 
+Os códigos \ref{lst:enemyDatabaseHeaderOri}-\ref{lst:enemyDatabaseOri} apresentam um exemplo 
+de como foram feitas as implementações de Penton, enquanto os códigos 
+\ref{lst:enemyDatabaseHeaderUpdate}-\ref{lst:enemyDatabaseUpdate} apresentam as modificações realizadas.
+
+\begin{listing}[!ht]
+    \begin{minted}{cpp}
+        class EnemyTemplateDatabase : public EntityDatabaseVector<EnemyTemplate>
+        {
+        public:
+            static void Load();
+        };  // end class EnemyTemplateDatabase
+
+
+        class EnemyDatabase : public EntityDatabase<Enemy>
+        {
+        public:
+            static void Create( entityid p_template, room p_room );
+            static void Delete( enemy p_enemy );
+            static void Load();
+            static void Save();
+
+        };  // end class EnemyDatabase
+    \end{minted}
+\caption{Cabeçalho das classes EnemyTemplateDatabase e EnemyDatabase originais}
+\label{lst:enemyDatabaseHeaderOri}
+\end{listing}
+
+\begin{listing}[!ht]
+    \begin{minted}{cpp}
+        // declare the static vector of the enemy template database.
+        std::vector<EnemyTemplate> EntityDatabaseVector<EnemyTemplate>::m_vector;
+
+        // declare the static map of the enemy instance database.
+        std::map<entityid, Enemy> EntityDatabase<Enemy>::m_map;
+    \end{minted}
+\caption{Classes EnemyTemplateDatabase e EnemyDatabase originais}
+\label{lst:enemyDatabaseOri}
+\end{listing}
+
+A variável m\_map é inicialmente declarada na classe EntityDatabase, que serve como classe base para
+o banco de dados, no entanto, por ser estática, é necessário redefini-la em toda classe derivada para 
+evitar problemas de linkagem ao compilar os arquivos. O mesmo vale para variável m\_vector, da classe EntityDatabaseVector.
+
+Outra peculiaridade dessa implementação original é a necessidade de todas funções serem estáticas, uma vez que 
+não há instancia das classes. Ambas situações foram extinguidas com a nova implementação.
+
+\begin{listing}[!ht]
+    \begin{minted}{cpp}
+        class EnemyTemplateDatabase : public EntityDatabaseVector<EnemyTemplate>
+        {
+        public:
+            static EnemyTemplateDatabase& GetInstance();
+            EnemyTemplateDatabase(EnemyTemplateDatabase const&) = delete;
+            EnemyTemplateDatabase(EnemyTemplateDatabase&&) = delete;
+            EnemyTemplateDatabase& operator=(EnemyTemplateDatabase const&) = delete;
+            EnemyTemplateDatabase& operator=(EnemyTemplateDatabase &&) = delete;
+
+            void Load();
+
+        private:
+            EnemyTemplateDatabase(){}
+        };  // end class EnemyTemplateDatabase
+
+
+        class EnemyDatabase : public EntityDatabase<Enemy>
+        {
+        public:
+            static EnemyDatabase& GetInstance();
+            EnemyDatabase(EnemyDatabase const&) = delete;
+            EnemyDatabase(EnemyDatabase&&) = delete;
+            EnemyDatabase& operator=(EnemyDatabase const&) = delete;
+            EnemyDatabase& operator=(EnemyDatabase &&) = delete;
+
+            void Create( entityid p_template, room p_room );
+            void Delete( enemy p_enemy );
+            void Load();
+            void Save();
+
+        private:
+            EnemyDatabase(){}
+        };  // end class EnemyDatabase
+    \end{minted}
+\caption{Cabeçalho das classes EnemyTemplateDatabase e EnemyDatabase atualizadas}
+\label{lst:enemyDatabaseHeaderUpdate}
+\end{listing}
+
+\begin{listing}[!ht]
+    \begin{minted}{cpp}
+        EnemyTemplateDatabase& EnemyTemplateDatabase::GetInstance()
+        {
+            static EnemyTemplateDatabase enemyTemplateDatabase;
+            return enemyTemplateDatabase;
+        }
+
+        EnemyDatabase& EnemyDatabase::GetInstance()
+        {
+            static EnemyDatabase enemyDatabase;
+            return enemyDatabase;
+        }
+    \end{minted}
+\caption{Classes EnemyTemplateDatabase e EnemyDatabase atualizadas}
+\label{lst:enemyDatabaseUpdate}
+\end{listing}
+
+Com a instanciação das classes, as funções e atributos deixaram de ser estáticos e os acessos 
+as entidades do banco de dados passou ser feito a partir da chamada GetInstance (Código \ref{lst:enemyDelete}). 
+Diversas alterações pequenas foram feitas em outros arquivos para adaptá-los ao novo padrão adotado.
+
+\begin{listing}[!ht]
+    \begin{minted}{cpp}
+        // Código original, Game.cpp, linha 1296
+        EnemyDatabase::Delete( p_enemy );
+
+        // Código pós alterações
+        EnemyDatabase::GetInstance().Delete( p_enemy );
+    \end{minted}
+\caption{Exemplo de deleção de um inimigo pré e pós da atualização das entidades}
+\label{lst:enemyDelete}
+\end{listing}

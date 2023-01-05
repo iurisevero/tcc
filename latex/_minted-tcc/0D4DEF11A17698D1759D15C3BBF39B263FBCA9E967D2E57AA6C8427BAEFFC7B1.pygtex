@@ -1,0 +1,18 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+        \PYG{k}{class} \PYG{n+nc}{EnemyTemplateDatabase} \PYG{o}{:} \PYG{k}{public} \PYG{n}{EntityDatabaseVector}\PYG{o}{\PYGZlt{}}\PYG{n}{EnemyTemplate}\PYG{o}{\PYGZgt{}}
+        \PYG{p}{\PYGZob{}}
+        \PYG{k}{public}\PYG{o}{:}
+            \PYG{k}{static} \PYG{k+kt}{void} \PYG{n}{Load}\PYG{p}{();}
+        \PYG{p}{\PYGZcb{};}  \PYG{c+c1}{// end class EnemyTemplateDatabase}
+
+
+        \PYG{k}{class} \PYG{n+nc}{EnemyDatabase} \PYG{o}{:} \PYG{k}{public} \PYG{n}{EntityDatabase}\PYG{o}{\PYGZlt{}}\PYG{n}{Enemy}\PYG{o}{\PYGZgt{}}
+        \PYG{p}{\PYGZob{}}
+        \PYG{k}{public}\PYG{o}{:}
+            \PYG{k}{static} \PYG{k+kt}{void} \PYG{n}{Create}\PYG{p}{(} \PYG{n}{entityid} \PYG{n}{p\PYGZus{}template}\PYG{p}{,} \PYG{n}{room} \PYG{n}{p\PYGZus{}room} \PYG{p}{);}
+            \PYG{k}{static} \PYG{k+kt}{void} \PYG{n+nf}{Delete}\PYG{p}{(} \PYG{n}{enemy} \PYG{n}{p\PYGZus{}enemy} \PYG{p}{);}
+            \PYG{k}{static} \PYG{k+kt}{void} \PYG{n+nf}{Load}\PYG{p}{();}
+            \PYG{k}{static} \PYG{k+kt}{void} \PYG{n+nf}{Save}\PYG{p}{();}
+
+        \PYG{p}{\PYGZcb{};}  \PYG{c+c1}{// end class EnemyDatabase}
+\end{Verbatim}

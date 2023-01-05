@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+        \PYG{n}{EnemyTemplateDatabase}\PYG{o}{\PYGZam{}} \PYG{n}{EnemyTemplateDatabase}\PYG{o}{::}\PYG{n}{GetInstance}\PYG{p}{()}
+        \PYG{p}{\PYGZob{}}
+            \PYG{k}{static} \PYG{n}{EnemyTemplateDatabase} \PYG{n}{enemyTemplateDatabase}\PYG{p}{;}
+            \PYG{k}{return} \PYG{n}{enemyTemplateDatabase}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{n}{EnemyDatabase}\PYG{o}{\PYGZam{}} \PYG{n}{EnemyDatabase}\PYG{o}{::}\PYG{n}{GetInstance}\PYG{p}{()}
+        \PYG{p}{\PYGZob{}}
+            \PYG{k}{static} \PYG{n}{EnemyDatabase} \PYG{n}{enemyDatabase}\PYG{p}{;}
+            \PYG{k}{return} \PYG{n}{enemyDatabase}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}}
+\end{Verbatim}

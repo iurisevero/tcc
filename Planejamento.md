@@ -6,8 +6,9 @@
     - Perspectiva geral sobre
     - Bartle
         - MUD1 - Perspectiva geral
-        - Dirty - Citar
+        - Dirty - Citar?
         - SimpleMUD - Livro MUD Game Programming
+    - MUD nas faculdades?
 * Evolução e manutenção de código
     - Perspectiva geral sobre
         - Evolução adaptativa do software e manutenção "Groomative"

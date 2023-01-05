@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+        \PYG{c+c1}{// declare the static vector of the enemy template database.}
+        \PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{EnemyTemplate}\PYG{o}{\PYGZgt{}} \PYG{n}{EntityDatabaseVector}\PYG{o}{\PYGZlt{}}\PYG{n}{EnemyTemplate}\PYG{o}{\PYGZgt{}::}\PYG{n}{m\PYGZus{}vector}\PYG{p}{;}
+
+        \PYG{c+c1}{// declare the static map of the enemy instance database.}
+        \PYG{n}{std}\PYG{o}{::}\PYG{n}{map}\PYG{o}{\PYGZlt{}}\PYG{n}{entityid}\PYG{p}{,} \PYG{n}{Enemy}\PYG{o}{\PYGZgt{}} \PYG{n}{EntityDatabase}\PYG{o}{\PYGZlt{}}\PYG{n}{Enemy}\PYG{o}{\PYGZgt{}::}\PYG{n}{m\PYGZus{}map}\PYG{p}{;}
+\end{Verbatim}
