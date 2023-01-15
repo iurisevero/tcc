@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{c+c1}{// GameLoop.cpp, linha 143}
+    \PYG{k+kt}{void} \PYG{n}{GameLoop}\PYG{o}{::}\PYG{n}{PerformHeal}\PYG{p}{()}
+    \PYG{p}{\PYGZob{}}
+        \PYG{k}{for}\PYG{p}{(}\PYG{k}{auto}\PYG{o}{\PYGZam{}} \PYG{n+nl}{player} \PYG{p}{:} \PYG{n}{PlayerDatabase}\PYG{o}{::}\PYG{n}{GetInstance}\PYG{p}{())\PYGZob{}}
+            \PYG{k}{if}\PYG{p}{(} \PYG{n}{player}\PYG{p}{.}\PYG{n}{Active}\PYG{p}{()} \PYG{p}{)}
+            \PYG{p}{\PYGZob{}}
+                \PYG{n}{player}\PYG{p}{.}\PYG{n}{AddHitpoints}\PYG{p}{(} \PYG{n}{player}\PYG{p}{.}\PYG{n}{GetAttr}\PYG{p}{(} \PYG{n}{HPREGEN} \PYG{p}{)} \PYG{p}{);}
+                \PYG{n}{player}\PYG{p}{.}\PYG{n}{PrintStatbar}\PYG{p}{(} \PYG{n+nb}{true} \PYG{p}{);}
+            \PYG{p}{\PYGZcb{}}
+        \PYG{p}{\PYGZcb{}}
+    \PYG{p}{\PYGZcb{}}
+\end{Verbatim}

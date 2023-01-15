@@ -1,0 +1,16 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{c+c1}{// GameLoop.cpp, linha 151}
+    \PYG{k+kt}{void} \PYG{n}{GameLoop}\PYG{o}{::}\PYG{n}{PerformHeal}\PYG{p}{()}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n}{PlayerDatabase}\PYG{o}{::}\PYG{n}{iterator} \PYG{n}{itr} \PYG{o}{=} \PYG{n}{PlayerDatabase}\PYG{o}{::}\PYG{n}{GetInstance}\PYG{p}{().}\PYG{n}{begin}\PYG{p}{();}
+        \PYG{k}{while}\PYG{p}{(} \PYG{n}{itr} \PYG{o}{!=} \PYG{n}{PlayerDatabase}\PYG{o}{::}\PYG{n}{GetInstance}\PYG{p}{().}\PYG{n}{end}\PYG{p}{()} \PYG{p}{)}
+        \PYG{p}{\PYGZob{}}
+            \PYG{k}{if}\PYG{p}{(} \PYG{n}{itr}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{Active}\PYG{p}{()} \PYG{p}{)}
+            \PYG{p}{\PYGZob{}}
+                \PYG{n}{itr}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{AddHitpoints}\PYG{p}{(} \PYG{n}{itr}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{GetAttr}\PYG{p}{(} \PYG{n}{HPREGEN} \PYG{p}{)} \PYG{p}{);}
+                \PYG{n}{itr}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{PrintStatbar}\PYG{p}{(} \PYG{n+nb}{true} \PYG{p}{);}
+            \PYG{p}{\PYGZcb{}}
+            \PYG{o}{++}\PYG{n}{itr}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}}
+    \PYG{p}{\PYGZcb{}}
+\end{Verbatim}

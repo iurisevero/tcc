@@ -522,3 +522,210 @@ Diversas alterações pequenas foram feitas em outros arquivos para adaptá-los 
 \caption{Exemplo de deleção de um inimigo pré e pós da atualização das entidades}
 \label{lst:enemyDelete}
 \end{listing}
+
+\section{Outras alterações}
+
+Durante a refatoração, foram encontrados trechos de código que poderiam ser atualizados, tanto
+para a utilização de novas funcionalidades adicionadas no C++ quanto para se obter um código mais limpo.
+
+\subsection{EntityDatabase iterator}
+
+A classe EntityDatabase tem como objetivo servir de template para as entidades do banco de dados. 
+Nela ocorre o agrupamento de um dicionário e funções de busca, assim como a abstração dessa 
+estrutura em um novo tipo, chamado \textit{container} e seu iterador, \textit{containeritr}. 
+Por fim, uma classe \textit{iterator} é criada para sobrescrever o iterador padrão das estrutura 
+definida na STL. O código \ref{lst:entityDatabase} apresenta partes dessa classe.
+
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{cpp}
+    // EntityDatabase.h
+    template< class datatype >
+    class EntityDatabase
+    {
+    public:
+
+        typedef std::map<entityid, datatype> container;
+        typedef typename std::map<entityid, datatype>::iterator containeritr;
+        // --------------------------------------------------------------------
+        //  The inner iterator class, used to iterate through the database.
+        // --------------------------------------------------------------------
+        class iterator : public containeritr{}
+
+    protected:
+        std::map<entityid, datatype> m_map;
+    };  // end class EntityDatabase
+    \end{minted}
+\caption{Trechos da classe EntityDatabase}
+\label{lst:entityDatabase}
+\end{listing}
+
+Na construção do iterador interno ocorre a sobrescrita de dois operadores, o operador 
+\textit{*} e o \textit{->}, utilizados para desreferência e seleção de elemento por ponteiro, 
+respectivamente. No entanto, as novas funcionalidades atribuidas para esses operadores utilizam 
+o operador \textit{->} da classe base, porém o acesso a esse operador é perdido, uma vez que ele 
+é sobrescrito. Para contornar essa situação, Peton cria um cópia do ponteiro da classe derivada e a 
+"converte" para classe base, seguido pela chamada do operador desejado, o que resultou em um 
+código não muito claro e de difícil interpretação, código \ref{lst:innerIteratorEntityDatabase}.
+
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{cpp}
+    // EntityDatabase.h
+    class iterator : public containeritr
+    {
+    public:
+
+        // --------------------------------------------------------------------
+        // NOTE: the constructors are needed as a result of VC6 sucking.
+        // Have I mentioned that VC6 sucks yet?
+        // --------------------------------------------------------------------
+        iterator() {};  // default constructor
+        iterator( const containeritr& p_itr ) // copy constructor
+        {
+            containeritr& itr = *this; // also needed because VC6 sucks
+            itr = p_itr;
+        }
+
+        // --------------------------------------------------------------------
+        //  "dereferences" the iterator to return a reference to the
+        //  object that it points to.
+        // --------------------------------------------------------------------
+        inline datatype& operator*()
+        {
+            containeritr& itr = *this; // also needed because VC6 sucks
+            return itr->second;
+        }
+
+        // --------------------------------------------------------------------
+        //  the "pointer-to-member" operator, which will allow you to use it on
+        //  iterators like this: itr->Function();
+        // --------------------------------------------------------------------
+        inline datatype* operator->()
+        {
+            containeritr& itr = *this; // also needed because VC6 sucks
+            return &(itr->second);
+        }
+    };  // end iterator inner class
+    \end{minted}
+\caption{Iterador interno da classe EntityDatabase}
+\label{lst:innerIteratorEntityDatabase}
+\end{listing}
+
+Todas as funções apresentadas foram atualizadas. Os construtores passaram a utilizar um 
+método moderno, enquanto os operadores passaram a utilizar a função \textit{static\_cast}, 
+que atinge o mesmo resultado de acessar os operadores da classe base, porém de uma forma mais limpa. 
+O código \ref{lst:innerIteratorEntityDatabaseRefc} apresenta a classe \textit{iterator} 
+refatorada.
+
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{cpp}
+    // EntityDatabase.h
+    class iterator : public containeritr
+    {
+    public:
+        iterator() {};  // default constructor
+        iterator( const containeritr& p_itr ) : containeritr( p_itr ){} // copy constructor
+
+        // --------------------------------------------------------------------
+        //  "dereferences" the iterator to return a reference to the
+        //  object that it points to.
+        // --------------------------------------------------------------------
+        inline datatype& operator*() 
+        {
+            return static_cast<containeritr>(*this)->second;
+        }
+
+        // --------------------------------------------------------------------
+        //  the "pointer-to-member" operator, which will allow you to use it on
+        //  iterators like this: itr->Function();
+        // --------------------------------------------------------------------
+        inline datatype* operator->()
+        {
+            return &(static_cast<containeritr>(*this)->second);
+        }
+    };  // end iterator inner class
+    \end{minted}
+\caption{Refatoração do iterador interno da classe EntityDatabase}
+\label{lst:innerIteratorEntityDatabaseRefc}
+\end{listing}
+
+\subsection{Estruturas de Repetição}
+
+A partir do C++11 foi adicionada a estrutura de repetição for baseada em um intervalo definido. 
+O \textit{Range-based for loop} é usado como um equivalente mais legível ao loop for tradicional 
+operando em uma faixa de valores, como todos os elementos em um contêiner \cite{rangebasedfor}. 
+
+A iteração por todos elementos de um contêiner é facilmente encontrada em diversos segmentos do 
+código do SimpleMUD, como apresentado no código \ref{lst:whileloop}, e podem ser atualizados utilizando
+o \textit{range-based for loop}, código \ref{lst:rangebasedfor}.
+
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{cpp}
+    // GameLoop.cpp, linha 151
+    void GameLoop::PerformHeal()
+    {
+        PlayerDatabase::iterator itr = PlayerDatabase::GetInstance().begin();
+        while( itr != PlayerDatabase::GetInstance().end() )
+        {
+            if( itr->Active() )
+            {
+                itr->AddHitpoints( itr->GetAttr( HPREGEN ) );
+                itr->PrintStatbar( true );
+            }
+            ++itr;
+        }
+    }
+    \end{minted}
+\caption{Função PerformHeal da classe GameLoop}
+\label{lst:whileloop}
+\end{listing}
+
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{cpp}
+    // GameLoop.cpp, linha 143
+    void GameLoop::PerformHeal()
+    {
+        for(auto& player : PlayerDatabase::GetInstance()){
+            if( player.Active() )
+            {
+                player.AddHitpoints( player.GetAttr( HPREGEN ) );
+                player.PrintStatbar( true );
+            }
+        }
+    }
+    \end{minted}
+\caption{Função PerformHeal da classe GameLoop atualizada}
+\label{lst:rangebasedfor}
+\end{listing}
+
+Para atualização das estruturas de repetição foi necessário a alteração de 6 arquivos, totalizando
+9 funções refatoradas e a redução de 21 linhas de código.

@@ -13,3 +13,8 @@
 \contentsline {listing}{\numberline {13}{\ignorespaces Cabe\IeC {\c c}alho das classes EnemyTemplateDatabase e EnemyDatabase atualizadas}}{56}{listing.13}% 
 \contentsline {listing}{\numberline {14}{\ignorespaces Classes EnemyTemplateDatabase e EnemyDatabase atualizadas}}{57}{listing.14}% 
 \contentsline {listing}{\numberline {15}{\ignorespaces Exemplo de dele\IeC {\c c}\IeC {\~a}o de um inimigo pr\IeC {\'e} e p\IeC {\'o}s da atualiza\IeC {\c c}\IeC {\~a}o das entidades}}{57}{listing.15}% 
+\contentsline {listing}{\numberline {16}{\ignorespaces Trechos da classe EntityDatabase}}{58}{listing.16}% 
+\contentsline {listing}{\numberline {17}{\ignorespaces Iterador interno da classe EntityDatabase}}{59}{listing.17}% 
+\contentsline {listing}{\numberline {18}{\ignorespaces Refatora\IeC {\c c}\IeC {\~a}o do iterador interno da classe EntityDatabase}}{60}{listing.18}% 
+\contentsline {listing}{\numberline {19}{\ignorespaces Fun\IeC {\c c}\IeC {\~a}o PerformHeal da classe GameLoop}}{60}{listing.19}% 
+\contentsline {listing}{\numberline {20}{\ignorespaces Fun\IeC {\c c}\IeC {\~a}o PerformHeal da classe GameLoop atualizada}}{61}{listing.20}% 
