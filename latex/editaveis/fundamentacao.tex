@@ -1,0 +1,131 @@
+\chapter[Fundamentação Teórica]{Fundamentação Teórica}
+
+\section{Evolução e Manutenção de Software}
+
+% Around 75\% of the maintenance effort was on adaptative or perfective changes, and error correction consumed about 21\%. \cite{bennett2000software}
+% So software maintenance is important because (i) it consumes a large part of the overall lifecycle costs (ii) the inability to change software quickly and reliably means that business opportunities are lost. \cite{bennett2000software}
+
+%%%%
+
+A manutenção e evolução de software são atividades inevitáveis no trabalho com software - 
+quase todo software útil e bem-sucedido estimula pedidos de mudança e melhorias gerados pelo usuário \cite{bennett2000software}. 
+No entanto, a definição precisa dessas atividades ainda é objeto de debate.
+
+O Instituto de Engenheiros Eletricistas e Eletrônicos (IEEE) define, em seu glossário, 
+a manutenção de software como sendo a modificação de um produto de software após a entrega para 
+corrigir falhas, melhorar desempenho ou outros atributos, ou adaptar o produto a um ambiente alterado. 
+O IEEE ainda define os termos 'manutenção corretiva', 'manutenção adaptativa' e 'manutenção perfectiva', 
+apontados na tipologia de manutenção de software de Swanson \cite{1990IEEESGo, swanson1976dimensions}.
+
+\begin{itemize}
+    \item Manutenção Adaptativa: realizada para tornar um programa de computador utilizável em um ambiente alterado;
+    \item Manutenção Corretiva: realizada para corrigir falhas de hardware ou software;
+    \item Manutenção Perfectiva: realizada para melhorar o desempenho, capacidade de manutenção ou outros atributos de um programa de computador.
+\end{itemize}
+
+No entanto, as definições fornecidas no glossário do IEEE são parcialmente inconsistentes com as 
+definições de Swanson. Muitos pesquisadores adotaram essa terminologia, mas poucos utilizaram-na 
+como Swanson a definiu. Em vez disso, eles deram significados diferentes aos termos e não concordaram 
+entre si sobre os significados \cite{chapin2001types}. As três intenções para a manutenção de software 
+apontadas por Swanson foram, em resumo:
+
+\begin{itemize}
+    \item Manutenção Adaptativa: para adaptar o sistema às mudanças no seu ambiente de dados ou ambiente de processamento
+    \item Manutenção Corretiva: para corrigir falhas de processamento, desempenho ou implementação do sistema
+    \item Manutenção Perfectiva: para aperfeiçoar o sistema em termos de desempenho, eficiência de processamento ou manutenibilidade
+\end{itemize}
+
+Chapin, por sua vez, define a manutenção de software como a aplicação proposital de atividades e 
+processos, sejam eles completos ou não, em software existente, visando modificar a forma como o 
+software dirige o hardware do sistema. Isso é geralmente realizado no contexto da evolução de software 
+e difere da definição convencional encontrada no glossário do IEEE, uma vez que o status de 
+'pós-implantação' ou 'após-entrega' para o software não faz parte da definição. 
+
+Além disso, Chapin também define a evolução de software como a aplicação de atividades e 
+processos de manutenção de software que geram uma nova versão de software operacional com uma funcionalidade 
+ou propriedades experimentadas pelo cliente alteradas em relação à versão operacional anterior \cite{chapin2001types}. 
+No entanto, assim como outros pesquisadores e profissionais, ele também utiliza o termo como sinônimo 
+de manutenção de software, uma vez que o mesmo carece de uma definição padrão \cite{bennett2000software,chapin2001types}.
+
+Em conjunto com essas definições, Chapin também propõem uma classificação objetiva e mais precisa dos 
+tipos de atividades envolvidas na evolução e manutenção de software, com o objetivo de basear-se em 
+evidências objetivas verificáveis através de observação e/ou comparação antes e depois do software, 
+mesmo quando o conhecimento das pessoas originalmente envolvidas já não estiver mais disponível; 
+refletir de maneira realista a mistura real de atividades observadas nas práticas de evolução e 
+manutenção de software; proporcionar uma classificação realista e prática para facilitar a comunicação 
+e gestão da evolução e manutenção de software entre pesquisadores, profissionais e seus gestores; 
+entre outros \cite{chapin2001types}. Um maior detalhamento dessa proposta poderá ser visto na seção \ref{section:chapinTypes}.
+
+\subsection{Tipos de evolução e manutenção de software propostos pro Chapin}
+\label{section:chapinTypes}
+
+We base our classification on work performed on the software of the evolved or maintained system,
+deliberately done as activities or processes, and observed, manifested or detected in:
+
+* A - the software;
+* B - the code; and
+* C - the customer-experienced functionality.
+
+Evidence of activities that produce these changes serves as the criteria; observation and comparison
+provide the evidence.
+
+We define our proposed classification to be exhaustive with mutually exclusive types, grouped into clusters, 
+where any instance of software evolution or software maintenance may involve a mix or aggregate in any 
+order of some or all of the types, even though one type may be deemed or observed as dominant.
+
+The order of the types and their clusters is significant because of their different impacts, as Figure 1
+illustrates. One dimension is the impact of the evolution or maintenance on the customer's ability to
+function effectively using the software-implemented system in meeting its goals or how the customer 
+does its/his/her business and the customer's satisfaction with the system. This is drawn from left 
+(low impact) to right (high impact). The number of blocks suggests the likely range of the business 
+process impact on the customer. The other dimension is the impact of the evolution or maintenance 
+on the software itself. This is diagrammed top (low impact) to bottom (high impact).
+
+% adicionar figura 1
+
+In the form of a condensed decision tree, Figure 2 summarizes our proposal for an 
+objective-evidencebased classification. The three criteria decision - A, B, C - route to the appropriate 
+cluster of types. Within each cluster, the type decisions characterize the type. Because of the 
+significance patterns illustrated in Figure 1, the decision tree in Figure 2 is read from 
+left to right for increasing impact on either or both the software and the business processes. 
+The types are shown in four clusters, and within each cluster are read from bottom to top 
+for increasing impact on either or both the software and the customer business processes.
+
+% adicionar figura 2
+
+Type decisions in the form of questions are asked about particular evidence. The associated types 
+are shown in italics to the right of the type decisions and are only applicable when the associated 
+responses to the respective type decisions are 'Yes'. Since software evolution or software maintenance 
+typically involves many processes or activities, determining the type requires asking many of the 
+questions in the decision tree. Progression to the right or higher in the decision tree leaves 
+all to the left and lower as active candidate types. One of these types may have dominated.
+
+If none dominated or a single type name was wanted, then the default choice is whatever 'Yes' 
+answer to a type decision indicates the greatest impact (i.e., that which is farthest to the right 
+and highest in that cluster). The highest impact type is also the default choice when the objective 
+evidence to discriminate among the types is missing or moot for the type decisions within a cluster. 
+When the objective evidence is missing or moot for the criteria decisions A, B, and C, 
+the default choice is the 'No' alternative.
+
+Note also that no type 'Other' is offered, because each cluster has a designated default type for use
+when the objective evidence is ambiguous. If some activity or process were done but what it was is
+ambiguous from observation and the documentation evidence, then the overall default type is evaluative
+because it typically is the most common type. Of course, if observation and the other evidence
+indicate that no activities or processes were done to or with the software other than those involved in
+running it, then no type of software evolution or software maintenance occurred.
+
+With a variety of activities carried out, many of the types of software evolution and software
+maintenance can to some degree be observed, even when some particular type appears to be dominant.
+The question then is what are the relationships among the types? Figure 3 illustrates the relationships
+in a simple manner, where those higher up are more significant because they have more impact on the
+customer or the software or both. The key to understanding the relationships goes back to the three
+criteria decisions A, B, and C. All three must always be asked. Responding 'No' to any one of them
+identifies a respective cluster of types where at least one of the type decisions may earn a 'Yes' for
+some type. It also for the A and B criteria decisions takes us on to ask the next criterion decision, B or
+C respectively. In addition, responding either 'No' or 'Yes' to either the B or C criteria decision is also
+effectively invoking the 'No' response cluster associated with the A or B criteria decisions respectively.
+
+% Adicionar figura 3
+
+Para este estudo será utilizada as definições e tipos de manutenção e evolução de software 
+propostos por Chapin, em seu artigo "Types of software evolution and software maintenance".
