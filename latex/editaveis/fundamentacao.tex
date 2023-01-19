@@ -23,10 +23,10 @@ apontados na tipologia de manutenção de software de Swanson \cite{1990IEEESGo,
     \item Manutenção Perfectiva: realizada para melhorar o desempenho, capacidade de manutenção ou outros atributos de um programa de computador.
 \end{itemize}
 
-No entanto, as definições fornecidas no glossário do IEEE são parcialmente inconsistentes com as 
-definições de Swanson. Muitos pesquisadores adotaram essa terminologia, mas poucos utilizaram-na 
-como Swanson a definiu. Em vez disso, eles deram significados diferentes aos termos e não concordaram 
-entre si sobre os significados \cite{chapin2001types}. As três intenções para a manutenção de software 
+Diversos pesquisadores adotaram a terminologia de Swanson, no entanto poucos utilizaram-na como foram 
+definidas, o que causa confusão quanto a seu significado, uma vez que eles podem variar de acordo com 
+quem a está usando. O próprio glossário do IEEE é parcialmente inconsistente com a definição original 
+desses termos \cite{chapin2001types}. As três intenções para a manutenção de software 
 apontadas por Swanson foram, em resumo:
 
 \begin{itemize}
@@ -49,83 +49,109 @@ de manutenção de software, uma vez que o mesmo carece de uma definição padr�
 
 Em conjunto com essas definições, Chapin também propõem uma classificação objetiva e mais precisa dos 
 tipos de atividades envolvidas na evolução e manutenção de software, com o objetivo de basear-se em 
-evidências objetivas verificáveis através de observação e/ou comparação antes e depois do software, 
-mesmo quando o conhecimento das pessoas originalmente envolvidas já não estiver mais disponível; 
-refletir de maneira realista a mistura real de atividades observadas nas práticas de evolução e 
-manutenção de software; proporcionar uma classificação realista e prática para facilitar a comunicação 
-e gestão da evolução e manutenção de software entre pesquisadores, profissionais e seus gestores; 
-entre outros \cite{chapin2001types}. Um maior detalhamento dessa proposta poderá ser visto na seção \ref{section:chapinTypes}.
+evidências objetivas verificáveis através de observação e/ou comparação do antes e do depois do software; 
+e de proporcionar uma classificação realista e prática para facilitar a comunicação e gestão da evolução 
+e manutenção de software entre pesquisadores, profissionais e seus gestores \cite{chapin2001types}. 
+A proposta de Chapin será detalhada de forma resumida na seção \ref{section:chapinTypes}.
 
-\subsection{Tipos de evolução e manutenção de software propostos pro Chapin}
+\subsection{Classificação da evolução e manutenção de software proposta por Chapin}
 \label{section:chapinTypes}
 
-We base our classification on work performed on the software of the evolved or maintained system,
-deliberately done as activities or processes, and observed, manifested or detected in:
+A classificação proposta por Chapin tem como base três critérios de decisão que se fundamentam sobre o 
+local do sistema onde as atividades de manutenção ou evolução do software ocorrem, podendo essas serem 
+realizadas no software (A), no código (B) ou nas funcionalidades experimentadas pelo cliente (C). 
+Esses critérios são satisfeitos a partir da coleta de evidências objetivas, que são adquiridas 
+por meio da comparação do software antes e depois das alterações.
 
-* A - the software;
-* B - the code; and
-* C - the customer-experienced functionality.
+A partir dos critérios atendidos, se define o \textit{cluster} ao qual essa atividade pertence, 
+entre as quatro opções propostas e, por fim, são escolhidos os tipos de decisão, mutuamente exclusivos, 
+condizentes com a atividade realizada, dentre as opções sugeridas no \textit{cluster} definido. 
+Pode ser feita uma mistura ou agregação em qualquer ordem de alguns ou todos os tipos, mesmo que 
+um tipo possa ser considerado ou observado como dominante.
 
-Evidence of activities that produce these changes serves as the criteria; observation and comparison
-provide the evidence.
-
-We define our proposed classification to be exhaustive with mutually exclusive types, grouped into clusters, 
-where any instance of software evolution or software maintenance may involve a mix or aggregate in any 
-order of some or all of the types, even though one type may be deemed or observed as dominant.
-
-The order of the types and their clusters is significant because of their different impacts, as Figure 1
-illustrates. One dimension is the impact of the evolution or maintenance on the customer's ability to
-function effectively using the software-implemented system in meeting its goals or how the customer 
-does its/his/her business and the customer's satisfaction with the system. This is drawn from left 
-(low impact) to right (high impact). The number of blocks suggests the likely range of the business 
-process impact on the customer. The other dimension is the impact of the evolution or maintenance 
-on the software itself. This is diagrammed top (low impact) to bottom (high impact).
+A ordem dos tipos e seus clusters é significativa devido aos seus impactos diferentes, como ilustra 
+a Figura 1. A dimensão horizontal representa o impacto da evolução ou manutenção na capacidade do 
+usuário de utilizar o software de forma eficaz e na sua satisfação com o mesmo, da esquerda 
+(baixo impacto) para a direita (alto impacto). O número de blocos sugere a faixa provável de impacto 
+no cliente. A dimensão vertical representa o impacto da evolução ou manutenção no próprio software, 
+de cima (impacto baixo) para baixo (impacto alto).
 
 % adicionar figura 1
 
-In the form of a condensed decision tree, Figure 2 summarizes our proposal for an 
-objective-evidencebased classification. The three criteria decision - A, B, C - route to the appropriate 
-cluster of types. Within each cluster, the type decisions characterize the type. Because of the 
-significance patterns illustrated in Figure 1, the decision tree in Figure 2 is read from 
-left to right for increasing impact on either or both the software and the business processes. 
-The types are shown in four clusters, and within each cluster are read from bottom to top 
-for increasing impact on either or both the software and the customer business processes.
+Para definição do tipo de evolução ou manutenção realizada, Chapin fornece uma árvore de decisão 
+condensada, Fig. 2, com perguntas de 'Sim' ou 'Não' que encaminham para a opção mais apropriada. 
+A analise é iniciada pela parte do sistema que sofreu alteração, A, B ou C, que indica o cluster 
+adequado. Dentro de cada cluster são definidas perguntas para cada tipo, que são mostrados em itálico 
+à sua direita, e só são aplicáveis quando a resposta associada aquela pergunta é "Sim". 
+
+A leitura da árvore de decisão apresentada na Fig. 2 deve ser realizada da esquerda para direita, 
+enquanto os tipos devem ser lidos de baixo para cima, ambos levando em consideração os padrões de 
+significância ilustrados na Figura 1, para que se obtenha um impacto crescente tanto no software 
+quanto nos processos de negócios do cliente.
+
+Dado que a evolução ou manutenção de software geralmente implica inúmeros processos ou atividades, a 
+determinação do tipo requer a realização de várias perguntas na árvore de decisão. Progredir para a 
+direita ou para cima na árvore de decisão deixa todos os tipos à esquerda e abaixo como candidatos ativos. 
+E caso um tipo dominante não seja definido, a escolha padrão deve ser aquele com maior impacto que 
+recebeu uma resposta positiva, ou seja, o "Sim" que estiver mais à direita e na posição mais alta.
+
+O tipo de maior impacto dentro de um cluster também é a escolha padrão quando a evidência para 
+discriminar entre os tipos está faltando ou é discutível. Por conta disso, também não é fornecido 
+um tipo "Outro", já que, no caso de um evidência ambígua, existe um padrão a ser seguido.
+
+Caso exista falta de evidências para definir os critérios de decisão A, B, e C, ou caso elas sejam 
+discutíveis, a escolha padrão para responder a árvore de decisão deve ser "Não". Por fim, se a 
+observação e outras evidências indicarem que não foram realizadas atividades ou processos além 
+dos relacionados à execução do software, não houve ocorrência de evolução ou manutenção de software.
 
 % adicionar figura 2
 
-Type decisions in the form of questions are asked about particular evidence. The associated types 
-are shown in italics to the right of the type decisions and are only applicable when the associated 
-responses to the respective type decisions are 'Yes'. Since software evolution or software maintenance 
-typically involves many processes or activities, determining the type requires asking many of the 
-questions in the decision tree. Progression to the right or higher in the decision tree leaves 
-all to the left and lower as active candidate types. One of these types may have dominated.
+Diante da ampla variedade de atividades executadas no âmbito da evolução e manutenção de software, 
+é possível observar uma variedade de tipos, mesmo quando um tipo particular é predominante. A Fig. 3 
+ilustra de maneira simples a relação encontrada entre os tipos definidos, onde os superiores são mais 
+significativos porque têm mais impacto no cliente ou no software ou em ambos.
 
-If none dominated or a single type name was wanted, then the default choice is whatever 'Yes' 
-answer to a type decision indicates the greatest impact (i.e., that which is farthest to the right 
-and highest in that cluster). The highest impact type is also the default choice when the objective 
-evidence to discriminate among the types is missing or moot for the type decisions within a cluster. 
-When the objective evidence is missing or moot for the criteria decisions A, B, and C, 
-the default choice is the 'No' alternative.
+A chave para entender essa relação retoma os três critérios de decisão A, B e C. Responder 
+"Não" para um desses critérios identifica de imediato um \textit{cluster} respectivo, onde terá 
+pelo menos um tipo de decisão que será escolhido. No entanto, ao responder com "Não" um critério 
+mais impactante, ou seja, que esteja mais a direita, também corresponde a responder com "Não" os 
+critérios menos impactantes, adicionando os respectivos \textit{clustes} à analise. 
 
-Note also that no type 'Other' is offered, because each cluster has a designated default type for use
-when the objective evidence is ambiguous. If some activity or process were done but what it was is
-ambiguous from observation and the documentation evidence, then the overall default type is evaluative
-because it typically is the most common type. Of course, if observation and the other evidence
-indicate that no activities or processes were done to or with the software other than those involved in
-running it, then no type of software evolution or software maintenance occurred.
-
-With a variety of activities carried out, many of the types of software evolution and software
-maintenance can to some degree be observed, even when some particular type appears to be dominant.
-The question then is what are the relationships among the types? Figure 3 illustrates the relationships
-in a simple manner, where those higher up are more significant because they have more impact on the
-customer or the software or both. The key to understanding the relationships goes back to the three
-criteria decisions A, B, and C. All three must always be asked. Responding 'No' to any one of them
-identifies a respective cluster of types where at least one of the type decisions may earn a 'Yes' for
-some type. It also for the A and B criteria decisions takes us on to ask the next criterion decision, B or
-C respectively. In addition, responding either 'No' or 'Yes' to either the B or C criteria decision is also
-effectively invoking the 'No' response cluster associated with the A or B criteria decisions respectively.
+Apesar da explicação ser complicada, na prática, ao selecionar um tipo de evolução ou manuntenção 
+de software, todos os tipos que estiverem listados abaixo dele na Fig. 3 também serão observados 
+durante a realização das atividades, mesmo quem em pequena quantidade.
 
 % Adicionar figura 3
+
+% Isso entraria como apêndice?
+Os tipos de evolução e manutenção de software propostos por Chapin são definidos como:
+
+\begin{itemize}
+    \item Cluster de interface de suporte
+    \begin{itemize}
+        \item Treinamento: envolve atividades como ministrar aulas para o pessoal do cliente, realizar treinamentos que variam de on-site na empresa do cliente a treinamentos ambulantes, e utilizar materiais de treinamento existentes, já que esses materiais geralmente são derivados ou fazem parte da documentação
+        \item Consultivo: envolve atividades como atender perguntas em uma central de ajuda para o pessoal do cliente sobre o software, discutir com o pessoal ou gerentes do cliente sobre o uso eficaz de um sistema ou sobre a realização de (propostas ou possíveis) alterações no software, e aconselhar clientes, gerentes ou outros interessados (ou mesmo pesquisadores) sobre o tempo, custo, atividades ou esforço necessários para realizar trabalhos de evolução ou manutenção solicitados ou contemplados.
+        \item Avaliativo: envolve atividades como auditoria, busca, examinação, teste de regressão, estudo, teste diagnóstico, fornecimento de ambientes de teste protegidos, cálculo de métricas sobre, ou criação de uma compreensão do software sem alterá-lo.
+    \end{itemize}
+    \item Cluster de Documentação
+    \begin{itemize}
+        \item Reformativo: altera a forma da documentação não-código, sem alterar o código. Isso inclui atividades como alterar o formato ou cobertura de um manual do usuário.
+        \item Atualizativo: envolve atualizar o conteúdo e cobertura e polir a documentação não-código, como substituir documentação não-código obsoleta por documentação atual e precisa e preencher lacunas na documentação não-código, como incluir planos de teste, visões gerais narrativas, modelos UML, etc., sem alterar o código.
+    \end{itemize}
+    \item Cluster de propriedades de software
+    \begin{itemize}
+        \item Groomativo: envolve atividades de cuidado com o código fonte, como recompilações, substituição de componentes ou algoritmos por outros mais elegantes, criação de backups de código, alteração de autorizações de acesso pessoais ou de nível, alteração de comentários ou linhas de anotação de código fonte, alteração de convenções de nomenclatura de dados, alteração da legibilidade ou compreensibilidade do código, fornecimento de mensagens de erro menos crípticas e preparação do código fonte para impressão bonita.
+        \item Preventivo: envolve alterações que não afetam a funcionalidade experimentada pelo cliente ou a tecnologia ou recursos utilizados. Os resultados dessas atividades preventivas raramente são diretamente perceptíveis pelo cliente. O tipo preventivo às vezes é uma ferramenta administrativa para gerenciar a carga de trabalho ou alocações orçamentárias ou relações com os stakeholders.
+        \item Desempenho: envolve processos como a redução do uso de armazenamento interno, melhoria do tempo de atividade do sistema, redução da duração de períodos fora de serviço, aumento da velocidade de execução, substituindo componentes ou algoritmos mais rápidos e melhoria da confiabilidade e robustez do sistema. A mudança em tais propriedades geralmente é percebível pelo cliente.
+        \item Adaptivo: envolve processos como adaptar o sistema para funcionar em uma plataforma diferente ou com um sistema operacional modificado ou com um tipo diferente de banco de dados, redistribuir as funções entre componentes ou sub-sistemas, aumentar a utilização de COTS, alterar os protocolos de comunicação suportados, mudar a interoperabilidade do sistema e mudar práticas de design e implementação, como migrar para tecnologia orientada a objetos.
+    \end{itemize}
+    \item Cluster de regras de negócio
+    \begin{itemize}
+        \item Redutivo: de particular importância para a evolução de software, envolve limitar ou eliminar algumas regras de negócios do repertório implementado, como substituir ou restringir ou remover parte ou todos os componentes, algoritmos ou sub-sistemas. Fluxos de dados podem ser eliminados ou reduzidos.
+        \item Correctivo: envolve aprimorar e especificar a implementação das regras de negócios existentes para lidar melhor com exceções e casos mal gerenciados, geralmente adicionando precisão adicional à lógica interna de alguns componentes ou algoritmos ou sub-sistemas, ou adicionando mais programação defensiva. Este tipo reativo 'arrumar' remove defeitos ('bugs') como aqueles originados de falhas de design ou erros de codificação.
+        \item Enhancive: é particularmente significativo para a evolução de software, pois implementa mudanças e adições ao repertório de regras de negócios implementadas pelo software, inserindo novos componentes, algoritmos ou sub-sistemas e alterando os existentes para ampliar ou estender seu escopo. Novos fluxos de dados podem ser adicionados e os fluxos de dados existentes podem ser redirecionados.
+    \end{itemize}
+\end{itemize}
 
 Para este estudo será utilizada as definições e tipos de manutenção e evolução de software 
 propostos por Chapin, em seu artigo "Types of software evolution and software maintenance".
