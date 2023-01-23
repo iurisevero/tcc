@@ -1,0 +1,100 @@
+\section{Multi-user Dungeons}
+
+% The SimpleMUD: This is a very
+% simple MUD (the name doesn't lie!), but it's a good start for
+% understanding how you can combine a simple data system
+% with a networking reaction system. In the SimpleMUD, I use
+% C++ exclusively to code the physical and logical aspects of
+% the game, and simple ASCII data files to store the data level 
+% of the game.
+
+% \cite{penton2003mud}
+
+A relação entre \textit{Multi-user Dungeons} (MUDs) e mundos virtuais surge desde antes da internet, 
+na época de 1970, quando o primeiro MUD foi lançado. Os mundos virtuais costumam ser chamados de MUDs 
+porque MUD foi o nome do primeiro mundo virtual a prosperar. No entanto, enquanto mundos virtuais são 
+ambientes considerados autocontidos, MUDs são, principalmente, mundos virtuais baseados em texto \cite{bartle2004designing,bartle2015multi}. 
+Em outras palavras, todo MUD é um mundo virtual, porém nem todo mundo virtual é um MUD.
+
+De acordo com o artigo "Multi-User Dungeons (MUDs)" de Bartle, há oito critérios estabelecidos para 
+determinar se um mundo virtual é considerado um MUD, os quais são:
+
+\begin{enumerate}
+    \item Ele opera por meio de um conjunto de regras automáticas que permitem aos jogadores efetuar 
+    alterações no ambiente virtual; essas regras são conhecidas como sua física. Salas de bate-papo e 
+    Dungeons \& Dragons não são MUDs porque não possuem física;
+    \item Os jogadores interagem com o mundo através do canal de um único objeto que eles controlam 
+    sozinhos e que está “dentro” do mundo; este objeto é seu caráter. Jogos de estratégia não são MUDs 
+    porque os jogadores não agem por meio de um personagem;
+    \item A interação ocorre em tempo real. Jogos baseados em turnos não são MUDs porque o tempo entre 
+    os movimentos é muito perceptível.
+    \item Vários jogadores podem compartilhar o mesmo ambiente virtual, no qual qualquer um deles pode 
+    fazer alterações. Jogos para um jogador não são MUDs porque o mundo não é compartilhado
+    \item As mudanças no mundo devem ser capazes de durar mesmo que todos jogadores encerrem suas 
+    sessões; isso é conhecido como persistência. Jogos de tiro em primeira pessoa não são MUDs porque 
+    não são persistentes
+    \item O mundo não deve ser o mundo real. A realidade não é um MUD porque é o mundo real.
+    \item Tem mecânica de jogo codificada em sua física. O Second Life não é um MUD porque não tem jogabilidade.
+    \item Tem uma interface principalmente textual. World of Warcraft não é um MUD porque é gráfico.
+\end{enumerate}
+
+Atualmente, os critérios 1 a 6 são abrangidos pelo termo mundo virtual, que é imparcial em relação aos critérios 7 e 8 \cite{bartle2015multi}.
+
+No aspecto do desenvolvimento, além de todo o trabalho de comunicação, geralmente há três partes em uma 
+\textit{game engine} de MUD: a física, a lógica e a de dados. A parte física é a que controla a existencia 
+e movimentação de items, personagens, salas... Basicamente tudo que pode ser representado como um objeto 
+físico, os quais normalmente são definidos como entidades. A parte lógica é responsável pelo que acontece 
+na camada física, como o que um personagem faz quando atacado ou quando recebe um item. Personagens precisam 
+tomar decisões, items precisam realizar ações quando são equipados, entre outras coisas. Por fim, a parte 
+de dados é a que define todas entidades físicas do jogo, por exemplo, sempre que você carrega um mapa na 
+camada física, o mapa é carregado da camada de dados.
+
+A forma como essas três partes são desenvolvidas nos MUDs variou bastante com tempo. Inicialmente 
+elas eram armazenadas dentro do código, o que dificultava alterações no jogo, uma vez que era necessário 
+ir no código, modificá-lo, recompilá-lo, reiniciar o MUD e o executar novamente.
+
+A camada de dados foi a primeira a se tornar flexível. Salvar os dados em arquivos possibilitava 
+alterar as informações das entidades sem precisar reiniciar o MUD. Após isso veio a flexibilização 
+da camada lógica, que, essencialmente, passou a permitir a alteração de como todo o jogo funciona 
+enquanto ele está rodando. A possibilidade de uma camada física flexível também existe, porém não é 
+algo que se popularizou, visto que a necessidade de uma camada física flexível não existe, uma vez 
+que a inserção de novos tipos de entidade é algo raro de acontecer \cite{penton2003mud}.
+
+\subsection{Evolução dos MUDs}
+
+Bartle, em seu livro "Design Virtual Words", dividi a evolução dos MUDs em cinco eras, 
+que vão desde 1978 até 2004, quando o livro foi publicado.
+
+Durante a Primeira Era, que aconteceu entre 1978 e 1985, foi feito o desenvolvimento do primeiro jogo 
+virtual chamado MUD (Multi-User Dungeon) criado por Roy Trubshaw, com o auxílio de Richard Bartle, 
+na Universidade de Essex na Inglaterra no final de 1978. O jogo foi escrito originalmente em MACRO-10 
+assembler e depois dividido em duas partes: a \textit{game engine}, escrita em BCPL, e o mundo do jogo escrito 
+em uma linguagem criada por Trubshaw chamada MUDDL. A ideia era criar um jogo com múltiplos mundos 
+que funcionaria no mesmo motor. O sucesso do jogo foi tão grande que seu nome acabou virando a definição 
+de todo o gênero e, posteriormente, ele passou a ser chamado de MUD1.
+
+A Segunda Era dos MUDs, entre 1985 e 1989, foi marcada pelo experimento constante tanto na criação do 
+mundo do jogo quanto na criação da \textit{game engine}, com muitas contribuições originais vindo do 
+grupo MirrorWorld no sistema IOWA (Input/Output World of Adventure). Foi decidido reescrever MUD1 do 
+zero como MUD2 e uma nova linguagem, MUDDLE (Multi-User Dungeon Definition LanguagE), foi desenvolvida 
+especificamente para escrever MUDs. A maioria dos MUDs da segunda era foram programados por entusiastas 
+em casa, pois poucas instituições acadêmicas no Reino Unido forneciam recursos de computação como 
+Universidade de Essex. A exceção foi AberMUD, escrito pela Universidade de Wales em Aberystwyth por 
+Alan Cox em 1987, que foi posteriormente portado para C, o que gerou oportunidades de grandes 
+avanços no gênero, pois permitiu a execução em ambientes \textit{Unix}. Praticamente todas as 
+questões-chave do design de MUDs foram identificadas na primeira e na segunda era.
+
+A Terceira Era, entre 1989 e 1995, foi marcada por um período de grande crescimento no número de 
+pessoas experimentando mundos virtuais. AberMUD se espalhou rapidamente entre departamentos de ciência 
+da computação universitários, gerando cópias idênticas em milhares de máquinas Unix. Isso resultou em 
+vários imitadores, sendo os principais TinyMUD, LPMUD e DikuMUD. De acordo com uma pesquisa sobre o 
+tráfego na rede NSFnet em 1993, cerca de 10\% dos bits pertenciam a MUDs, ou seja, antes da chegada da 
+World Wide Web, os MUDs representavam cerca de 10\% da Internet.
+
+A Quarta Era (1995 - 1997) e a Quinta Era (1997 - Presente) foram marcadas por avanços na forma como a 
+internet era comercializada e, consequentemente, a forma como os MUDs eram comercializados. Além disso 
+também houveram avanços na tecnologia relacionada a interfaces e gráficos, o que permitiu o surgimento 
+dos primeiros mundos virtuais 2D e, posteriormente, 3D. No final de 1979, o primeiro mundo virtual 
+gráfico totalmente funcional foi lançado, Avatar. No início dos anos 1990, a Kesmai Corporation fez um jogo de simulador de vôo multiplayer, Air Warrior, 
+que tinha clientes para PC, Atari ST, Commodore Amiga e Apple Macintosh. O Meridian 59 foi projetado por 
+Mike Sellers e Damion Schubert, e pretendia se tornar o primeiro “3D MUD”, objetivo o qual conseguiu \cite{bartle2004designing}.
