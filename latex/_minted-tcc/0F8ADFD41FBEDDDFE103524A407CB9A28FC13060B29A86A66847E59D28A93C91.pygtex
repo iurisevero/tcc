@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    gcc \PYGZhy{}o ..//bin/generate \PYGZhy{}DDEBUG \PYGZhy{}g \PYGZhy{}O4 \PYGZhy{}I..//include/ \PYGZhy{}DLINUX \PYGZhy{}DREBOOT generate.o \PYGZhy{}lgdbm \PYGZhy{}lcrypt
+    Regenerating World....
+    ..//bin/generate data ../
+    \PYG{o}{(}*\PYG{o}{)} Generating dyrt userfiles...
+
+    sh: line \PYG{l+m}{1}: //lib/cpp: No such file or directory
+
+    Zone not found: limbo in file ..//data/WORLD/limbo.zone.
+\end{Verbatim}

@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{    \PYGZsh{} GDBM Makefile, linha 96}
+    install: libgdbm.a gdbm.h gdbm.info
+        \PYG{k}{\PYGZdl{}(}INSTALL\PYGZus{}DATA\PYG{k}{)} libgdbm.a \PYG{k}{\PYGZdl{}(}libdir\PYG{k}{)}/libgdbm.a
+        \PYG{k}{\PYGZdl{}(}INSTALL\PYGZus{}DATA\PYG{k}{)} gdbm.h \PYG{k}{\PYGZdl{}(}includedir\PYG{k}{)}/gdbm.h
+        @mkdir \PYGZhy{}p \PYG{k}{\PYGZdl{}(}man3dir\PYG{k}{)} \PYG{c+c1}{\PYGZsh{} comando adicionado}
+        \PYG{k}{\PYGZdl{}(}INSTALL\PYGZus{}DATA\PYG{k}{)} \PYG{k}{\PYGZdl{}(}srcdir\PYG{k}{)}/gdbm.3 \PYG{k}{\PYGZdl{}(}man3dir\PYG{k}{)}/gdbm.3
+        @mkdir \PYGZhy{}p \PYG{k}{\PYGZdl{}(}infodir\PYG{k}{)} \PYG{c+c1}{\PYGZsh{} comando adicionado}
+        \PYG{k}{\PYGZdl{}(}INSTALL\PYGZus{}DATA\PYG{k}{)} \PYG{k}{\PYGZdl{}(}srcdir\PYG{k}{)}/gdbm.info \PYG{k}{\PYGZdl{}(}infodir\PYG{k}{)}/gdbm.info
+\end{Verbatim}

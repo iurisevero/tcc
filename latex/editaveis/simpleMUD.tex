@@ -1,9 +1,9 @@
-\chapter[Evolução e Manutenção SimpleMUD]{Evolução e Manutenção SimpleMUD}
+\section[Evolução e Manutenção SimpleMUD]{Evolução e Manutenção SimpleMUD}
+\label{section:evolSimpleMUD}
 
-Este capítulo tem como objetivo relatar o processo de evolução e manutenção do código SimpleMUD, 
-disponibilizado no livro MUD Game Programming.
+Esta seção tem como objetivo relatar o processo de evolução e manutenção do código SimpleMUD.
 
-\section{Primeiras alterações}
+\subsection{Primeiras alterações}
 
 As primeiras alterações realizadas no código foram feitas para corrigir erros de compilação. 
 A documentação do SimpleMUD define três passos para compilação do programa:
@@ -18,18 +18,18 @@ Sendo o primeiro para compilar as bibliotecas externas fornecidas pelo autor,
 o segundo para compilar o MUD e o terceiro para linkar (substituir por ligar?) 
 os arquivos objeto gerados. Ao tentar executá-los diversos erros foram levantados.
 
-\subsection{make libs}
+\subsubsection{make libs}
 
 O SimpleMUD utiliza três bibliotecas em sua codificação. 
 Uma para funções básicas, BasicLib (forma certa de citar?), uma para lidar com \textit{sockets}, 
 SocketLib, e uma para \textit{threads}, ThreadLib. Ao executar o comando de compilação 
 foram encontrados erros na biblioteca básica e na de \textit{sockets}.
 
-\subsubsection{BasicLib}
+\subsubsubsection{BasicLib}
 
 Os erros levantados na biblioteca básica se concentravam em torno das funções matemáticas 
 de logarítmo, cosseno e seno, que são utilizadas no arquivo BasicLibRandom.h 
-(como citar esse arquivo direito?)(Bloco de código \ref{lst:mathError}).
+(como citar esse arquivo direito?)(Código \ref{lst:mathError}).
 
 \begin{listing}[!ht]
     \begin{minted}[
@@ -59,10 +59,10 @@ de logarítmo, cosseno e seno, que são utilizadas no arquivo BasicLibRandom.h
 Para corrigí-los foi necessário incluir a biblioteca cmath (forma certa d citar?), 
 que faz parte da Biblioteca GNU ISO C++.
 
-\subsubsection{SocketLib}
+\subsubsubsection{SocketLib}
 
 A biblioteca de \textit{sockets} apresentou dois erros recorrentes. O primeiro foi com a função 'memset',
-no arquivo SocketLibSocket.cpp, cujo a correção foi indicada pelo compilador (Bloco de código \ref{lst:memsetError}). 
+no arquivo SocketLibSocket.cpp, cujo a correção foi indicada pelo compilador (Código \ref{lst:memsetError}). 
 Após a inclusão da biblioteca cstring os erros foram resolvidos.
 
 \begin{listing}[!ht]
@@ -86,7 +86,7 @@ Após a inclusão da biblioteca cstring os erros foram resolvidos.
 \label{lst:memsetError}
 \end{listing}
 
-O segundo erro foi resultado da declaração do tipo 'clistitr', apresentado no bloco de código \ref{lst:clistitrError}. 
+O segundo erro foi resultado da declaração do tipo 'clistitr', apresentado no Código \ref{lst:clistitrError}. 
 Como o próprio compilador aponta, a correção do erro é possível a partir da adição da 
 palavra chave \textit{typename} antes da definição de 'clistitr' e após a palavra chave \textit{typedef}. 
 Essa correção foi necessária devido à dependência no escopo do tipo definido\footnote{
@@ -117,7 +117,7 @@ Essa correção foi necessária devido à dependência no escopo do tipo definid
 \label{lst:clistitrError}
 \end{listing}
 
-O bloco de código \ref{lst:clistitrCorrection} apresenta a revisão feita.
+O Código \ref{lst:clistitrCorrection} apresenta a revisão feita.
 
 \begin{listing}[!ht]
     \begin{minted}[
@@ -138,11 +138,11 @@ O bloco de código \ref{lst:clistitrCorrection} apresenta a revisão feita.
 \label{lst:clistitrCorrection}
 \end{listing}
 
-\subsection{make simplemud}
+\subsubsection{make simplemud}
 
 Assim como a compilação das bibliotecas, o comando para compilar o MUD também apresentou 
 erros ao ser executado. Alguns semelhantes aos já resolvidos, como o exemplo apresentado 
-no bloco de código \ref{lst:knownError}, o que tornou a correção mais rápida.
+no Código \ref{lst:knownError}, o que tornou a correção mais rápida.
 
 \begin{listing}[!ht]
     \begin{minted}[
@@ -163,7 +163,7 @@ no bloco de código \ref{lst:knownError}, o que tornou a correção mais rápida
 
 Todos erros levantados na primeira tentativa de utilização do comando se referiam ao arquivo
 EntityDatabase.h e, em sua maioria, aconteciam ao tentar declarar o iterator do tipo 'container',
-bloco de código \ref{lst:itrError}, definido pelo próprio autor.
+Código \ref{lst:itrError}, definido pelo próprio autor.
 
 \begin{listing}[!ht]
     \begin{minted}[
@@ -268,7 +268,7 @@ blocos de código \ref{lst:containeritrOri} e \ref{lst:containeritrFix}.
 
 
 Após corrigidos os erros levantados pelo arquivo EntityDatabase.h, uma segunda tentatiza de 
-executar o comando foi feita e resultou em novos erros (bloco de código \ref{lst:templateError}).
+executar o comando foi feita e resultou em novos erros (Código \ref{lst:templateError}).
 
 \begin{listing}[!ht]
     \begin{minted}[
@@ -306,13 +306,13 @@ executar o comando foi feita e resultou em novos erros (bloco de código \ref{ls
 
 Os novos erros foram decorrentes da forma como as varíaveis estáticas das entidades do bancos de dados
 foram declaradas nas classes que possuiam herança com \textit{EntityDatabase} ou com \textit{EntityDatabaseVector}. 
-Um mesmo erro para vários arquivos, como é possível observar no bloco de código \ref{lst:templateError}. 
+Um mesmo erro para vários arquivos, como é possível observar no Código \ref{lst:templateError}. 
 
 A solução adotada foi a adição da palavra chave 'template<>', utilizando como argumento a mesma 
 classe passada para o template da classe base\footnote{Solução encontrada na documentação da IBM 
 \href{https://www.ibm.com/docs/en/zos/2.4.0?topic=only-static-data-members-templates-c}
 {Static data members and templates (C++ only)}}, antes da declaração da variável. 
-O bloco de código \ref{lst:templateFix} apresenta o resultado da correção.
+O Código \ref{lst:templateFix} apresenta o resultado da correção.
 
 \begin{listing}[!ht]
     \begin{minted}[
@@ -344,7 +344,7 @@ foi iniciada uma análise em busca de trechos do código que poderiam ser atuali
 para seguirem os padrões estabelecidos no \textit{C++ Core Guidelines}.
 
 
-\section{Alterações arquiteturais do Banco de Dados}
+\subsection{Alterações arquiteturais do Banco de Dados}
 
 Para o banco de dados, Peton utiliza uma abordagem com dicionários, vetores, classes e funções estáticos, 
 auxiliados por arquivos para persistir os dados. Dessa forma ele conseguiu uma estrutura que o 
@@ -523,12 +523,12 @@ Diversas alterações pequenas foram feitas em outros arquivos para adaptá-los 
 \label{lst:enemyDelete}
 \end{listing}
 
-\section{Outras alterações}
+\subsection{Outras alterações}
 
 Durante a refatoração, foram encontrados trechos de código que poderiam ser atualizados, tanto
 para a utilização de novas funcionalidades adicionadas no C++ quanto para se obter um código mais limpo.
 
-\subsection{EntityDatabase iterator}
+\subsubsection{EntityDatabase iterator}
 
 A classe EntityDatabase tem como objetivo servir de template para as entidades do banco de dados. 
 Nela ocorre o agrupamento de um dicionário e funções de busca, assim como a abstração dessa 
@@ -666,7 +666,7 @@ refatorada.
 \label{lst:innerIteratorEntityDatabaseRefc}
 \end{listing}
 
-\subsection{Estruturas de Repetição}
+\subsubsection{Estruturas de Repetição}
 
 A partir do C++11 foi adicionada a estrutura de repetição for baseada em um intervalo definido. 
 O \textit{Range-based for loop} é usado como um equivalente mais legível ao loop for tradicional 

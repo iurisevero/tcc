@@ -1,0 +1,24 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    main.c: In \PYG{k}{function} \PYG{l+s+s1}{\PYGZsq{}get\PYGZus{}options\PYGZsq{}}:
+    main.c:634:15: error: invalid storage class \PYG{k}{for} \PYG{k}{function} \PYG{l+s+s1}{\PYGZsq{}usage\PYGZsq{}}
+      \PYG{l+m}{634} \PYG{p}{|}   static void usage \PYG{o}{(}void\PYG{o}{)}\PYG{p}{;}
+          \PYG{p}{|}               \PYGZca{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}
+    main.c: In \PYG{k}{function} \PYG{l+s+s1}{\PYGZsq{}main\PYGZus{}loop\PYGZsq{}}:
+    main.c:767:15: error: invalid storage class \PYG{k}{for} \PYG{k}{function} \PYG{l+s+s1}{\PYGZsq{}new\PYGZus{}connection\PYGZsq{}}
+      \PYG{l+m}{767} \PYG{p}{|}   static void new\PYGZus{}connection \PYG{o}{(}int fd\PYG{o}{)}\PYG{p}{;}
+          \PYG{p}{|}               \PYGZca{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}
+
+    sflag.c:565:1: error: static declaration of \PYG{l+s+s1}{\PYGZsq{}\PYGZus{}wiz\PYGZsq{}} follows non\PYGZhy{}static declaration
+    sflag.c:522:3: note: previous implicit declaration of \PYG{l+s+s1}{\PYGZsq{}\PYGZus{}wiz\PYGZsq{}} with \PYG{n+nb}{type} \PYG{l+s+s1}{\PYGZsq{}void(int,  char *)\PYGZsq{}}
+      \PYG{l+m}{522} \PYG{p}{|}   \PYGZus{}wiz \PYG{o}{(}LVL\PYGZus{}APPRENTICE, wordbuf\PYG{o}{)}\PYG{p}{;}
+          \PYG{p}{|}   \PYGZca{}\PYGZti{}\PYGZti{}\PYGZti{}
+
+    /usr/bin/ld: errno: TLS definition in /usr/lib/libc.so.6 section .tbss mismatches non\PYGZhy{}TLS reference in bootstrap.o
+    /usr/bin/ld: /usr/lib/libc.so.6: error adding symbols: bad value
+    collect2: error: ld returned \PYG{l+m}{1} \PYG{n+nb}{exit} status
+    make: *** \PYG{o}{[}Makefile:158: ..//bin/aberd\PYG{o}{]} Error \PYG{l+m}{1}
+
+    gcc \PYGZhy{}o aberd \PYGZhy{}DDEBUG \PYGZhy{}g \PYGZhy{}O4 \PYGZhy{}I..//include/ \PYGZhy{}DLINUX \PYGZhy{}DREBOOT actions.o admin.o board.o bootstrap.o bprintf.o calendar.o change.o clone.o commands.o communicate.o condition.o fight.o flags.o frob.o game.o hate.o log.o magic.o mail.o main.o misc.o mobile.o move.o mud.o objsys.o parse.o party.o rooms.o s\PYGZus{}socket.o sendsys.o sflag.o timing.o uaf.o utils.o wizard.o wizlist.o writer.o zones.o  \PYGZhy{}lgdbm \PYGZhy{}lcrypt
+    /usr/bin/ld: admin.o:/home/iuri/Desktop/pibic/Pibic/dyrt\PYGZus{}19/dyrt/src/..//include/mud.h:15: 		 multiple definition of \PYG{l+s+sb}{`}a\PYGZus{}new\PYGZus{}player\PYG{l+s+s1}{\PYGZsq{}; actions.o:/home/iuri/Desktop/pibic/Pibic/dyrt\PYGZus{}19/dyrt/src/..//include/mud.h:15: first defined here}
+\PYG{l+s+s1}{    /usr/bin/ld: timing.o:/home/iuri/Desktop/pibic/Pibic/dyrt\PYGZus{}19/dyrt/src/timing.c:56:		 		 multiple definition of `next\PYGZus{}event\PYGZsq{}}\PYG{p}{;} mud.o:/home/iuri/Desktop/pibic/Pibic/dyrt\PYGZus{}19/dyrt/src/..//include/global.h:86: first defined here
+\end{Verbatim}

@@ -1,0 +1,19 @@
+\chapter[Resultados Parciais]{Resultados Parciais}
+
+Duas bases de código foram consideradas para realização da evolução e manutenção de software, os MUDs 
+Dirt, versão 3.1.2, de 1993, e Dyrt, vesão 1, de 1999.  Ambos jogos foram desenvolvidos em C e tiveram 
+bases semelhantes, uma vez que o Dirt se derivou do AberMUD, enquanto o Dyrt se derivou do próprio Dirt. 
+Por ser um pouco mais novo, o código do Dyrt foi priorizado para análise e possível manutenção.
+
+Após diversas tentativas de correção, não houve sucesso na execução do código do Dyrt e ele foi descartado. 
+Por serem bases de código legado, diversos erros relacionados a bibliotecas e funções depreciadas foram 
+encontrados, o que levou a consideração de uma terceira base de código: o SimpleMUD.
+
+O SimpleMUD, desenvolvido por Ron Penton em seu livro "MUD Game Programming", é um exemplo simples e 
+didático de MUD, que demonstra como combinar um sistema de dados com um \textcolor{red}{networking reaction system}. 
+Sua parte física e lógica foram desenvolvidas exclusivamente em C++, enquato a camada de dados foi armazenada 
+utilizando arquivos de dados ASCII simples \cite{penton2003mud}. Apesar de suas limitações, o SimpleMUD 
+atende às expectativas das bases de código analisadas, em relação a ser um MUD, e, mesmo tendo sido 
+desenvolvido em 2003, ele não apresentou problemas significativos relacionados a sua datação.
+
+As seções \ref{section:evolDyrt} e \ref{section:evolSimpleMUD} apresentarão mais detalhes das análises e alterações realizadas nas bases de código.

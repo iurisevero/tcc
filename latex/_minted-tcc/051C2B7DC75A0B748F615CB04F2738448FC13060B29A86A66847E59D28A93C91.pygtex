@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    /usr/bin/install \PYGZhy{}c \PYGZhy{}m \PYG{l+m}{644} ./gdbm.info /usr/local/info/gdbm.info
+    /usr/bin/install: cannot create regular file \PYG{l+s+s1}{\PYGZsq{}/usr/local/info/gdbm.info\PYGZsq{}}: No such file or directory
+\end{Verbatim}

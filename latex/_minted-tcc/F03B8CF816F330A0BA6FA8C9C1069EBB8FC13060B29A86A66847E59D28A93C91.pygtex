@@ -1,0 +1,25 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n+nv}{data\PYGZus{}dir} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}../data/\PYGZdq{}}.
+    \PYG{n+nv}{max\PYGZus{}players} \PYG{o}{=} \PYG{l+m}{40}.
+    \PYG{n+nv}{port} \PYG{o}{=} \PYG{l+m}{6715}.
+    Do not clear syslog file.
+    Debugging is on.
+    Kill other mud.
+    Bootstrap... ID\PYGZhy{}table \PYG{p}{\PYGZam{}} ID\PYGZhy{}counter used \PYG{l+m}{8192} bytes.
+    Bootstrap... \PYG{l+s+s1}{\PYGZsq{}players\PYGZsq{}} used \PYG{l+m}{602880} bytes.
+    Bootstrap... A:actions used \PYG{l+m}{61780} bytes.
+    Bootstrap... Z:zones used \PYG{l+m}{7856} bytes.
+    Bootstrap... L:locations used \PYG{l+m}{923949} bytes.
+    Bootstrap... C:mobiles used \PYG{l+m}{192716} bytes.
+    Bootstrap... E:levels used \PYG{l+m}{0} bytes.
+    Bootstrap... H:hours used \PYG{l+m}{0} bytes.
+    Bootstrap... I:intermud.conf used \PYG{l+m}{0} bytes.
+    Bootstrap... O:objects used \PYG{l+m}{279263} bytes.
+    Bootstrap... P:pflags used \PYG{l+m}{0} bytes.
+    Bootstrap... V:verbs used \PYG{l+m}{3200} bytes.
+    Bootstrap... W:wizlist \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZgt{}Can\PYG{err}{\PYGZsq{}}t open W file wizlist used \PYG{l+m}{0} bytes.
+
+    A total of \PYG{l+m}{2071644} bytes used.
+    Connected to port \PYG{l+m}{6715} on lucas\PYGZhy{}tkp.
+    Segmentation fault \PYG{o}{(}core dumped\PYG{o}{)}
+\end{Verbatim}

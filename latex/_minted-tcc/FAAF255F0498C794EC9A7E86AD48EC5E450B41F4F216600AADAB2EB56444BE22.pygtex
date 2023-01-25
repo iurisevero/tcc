@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{c+c1}{// sendsys.c, linha 114}
+    \PYG{c+cm}{/* Send general message.  */}
+    \PYG{k+kt}{void} \PYG{n}{send\PYGZus{}g\PYGZus{}msg}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{destination}\PYG{p}{,}                       \PYG{c+cm}{/* Where to send to */}
+                    \PYG{k+kt}{char} \PYG{o}{*}\PYG{n}{func}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{plx}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{arg}\PYG{p}{,} \PYG{k+kt}{char} \PYG{o}{*}\PYG{n}{t}\PYG{p}{),} \PYG{c+cm}{/* Test function */}
+                    \PYG{k+kt}{int} \PYG{n}{arg}\PYG{p}{,}                               \PYG{c+cm}{/* Argument to test */}
+                    \PYG{k+kt}{char} \PYG{o}{*}\PYG{n}{text}\PYG{p}{)}                            \PYG{c+cm}{/* Text to send */}
+\end{Verbatim}

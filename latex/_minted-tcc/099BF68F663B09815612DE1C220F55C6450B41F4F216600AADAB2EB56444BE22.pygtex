@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{c+c1}{// linux.h, linha 6}
+    \PYG{c+c1}{// Definição original}
+    \PYG{c+cp}{\PYGZsh{}define CPP \PYGZdq{}}\PYG{c+c1}{//usr/bin/cpp \PYGZhy{}P \PYGZhy{}traditional \PYGZhy{}I ../include \PYGZpc{}s\PYGZdq{}}
+    \PYG{c+c1}{// Caminho atualizado}
+    \PYG{c+cp}{\PYGZsh{}define CPP \PYGZdq{}}\PYG{c+c1}{//usr/bin/cpp \PYGZhy{}P \PYGZhy{}traditional \PYGZhy{}I ../include \PYGZpc{}s\PYGZdq{}}
+\end{Verbatim}

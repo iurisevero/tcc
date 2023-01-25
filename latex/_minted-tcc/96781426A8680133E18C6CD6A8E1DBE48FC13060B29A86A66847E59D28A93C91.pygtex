@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    /usr/bin/ld: tndbm.o: in \PYG{k}{function} \PYG{l+s+s1}{\PYGZsq{}main\PYGZsq{}}:
+    tndbm.c:\PYG{o}{(}.text+0x1b5\PYG{o}{)}: warning: the \PYG{l+s+s1}{\PYGZsq{}gets\PYGZsq{}} \PYG{k}{function} is dangerous and should not be used.
+    /usr/bin/ld: tndbm.c:\PYG{o}{(}.text+0x56\PYG{o}{)}: undefined reference to \PYG{l+s+sb}{`}dbm\PYGZus{}open\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{l+s+s1}{    /usr/bin/ld: tndbm.c:(.text+0x12c): undefined reference to `dbm\PYGZus{}firstkey\PYGZsq{}}
+    /usr/bin/ld: tndbm.c:\PYG{o}{(}.text+0x14b\PYG{o}{)}: undefined reference to \PYG{l+s+sb}{`}dbm\PYGZus{}fetch\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{l+s+s1}{    /usr/bin/ld: tndbm.c:(.text+0x188): undefined reference to `dbm\PYGZus{}close\PYGZsq{}}
+    /usr/bin/ld: tndbm.c:\PYG{o}{(}.text+0x1e3\PYG{o}{)}: undefined reference to \PYG{l+s+sb}{`}dbm\PYGZus{}fetch\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{l+s+s1}{    /usr/bin/ld: tndbm.c:(.text+0x2bd): undefined reference to `dbm\PYGZus{}store\PYGZsq{}}
+    /usr/bin/ld: tndbm.c:\PYG{o}{(}.text+0x386\PYG{o}{)}: undefined reference to \PYG{l+s+sb}{`}dbm\PYGZus{}delete\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{l+s+s1}{    /usr/bin/ld: tndbm.c:(.text+0x3c5): undefined reference to `dbm\PYGZus{}nextkey\PYGZsq{}}
+    /usr/bin/ld: tndbm.c:\PYG{o}{(}.text+0x3e0\PYG{o}{)}: undefined reference to \PYG{l+s+sb}{`}dbm\PYGZus{}fetch\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{l+s+s1}{    /usr/bin/ld: tndbm.c:(.text+0x42e): undefined reference to `dbm\PYGZus{}firstkey\PYGZsq{}}
+    /usr/bin/ld: tndbm.c:\PYG{o}{(}.text+0x44a\PYG{o}{)}: undefined reference to \PYG{l+s+sb}{`}dbm\PYGZus{}nextkey\PYG{err}{\PYGZsq{}}
+\end{Verbatim}

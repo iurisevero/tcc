@@ -1,0 +1,42 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{c+c1}{// sendsys.c, linha 114}
+    \PYG{k+kt}{void} \PYG{n+nf}{send\PYGZus{}g\PYGZus{}msg}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{destination}\PYG{p}{,}                       \PYG{c+cm}{/* Where to send to */}
+                    \PYG{k+kt}{char} \PYG{o}{*}\PYG{n}{func}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{plx}\PYG{p}{,} \PYG{k+kt}{void} \PYG{o}{*} \PYG{n}{arg}\PYG{p}{,} \PYG{k+kt}{char} \PYG{o}{*}\PYG{n}{t}\PYG{p}{),} \PYG{c+cm}{/* Test function */}
+                    \PYG{k+kt}{void} \PYG{o}{*} \PYG{n}{arg}\PYG{p}{,}                               \PYG{c+cm}{/* Argument to test */}
+                    \PYG{k+kt}{char} \PYG{o}{*}\PYG{n}{text}\PYG{p}{)}                            \PYG{c+cm}{/* Text to send */}
+
+    \PYG{c+c1}{// sendsys.c, linha 210}
+    \PYG{k+kt}{char} \PYG{o}{*}\PYG{n}{check\PYGZus{}send\PYGZus{}msg}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{plx}\PYG{p}{,} \PYG{k+kt}{void} \PYG{o}{*} \PYG{n}{arg}\PYG{p}{,} \PYG{k+kt}{char} \PYG{o}{*}\PYG{n}{t}\PYG{p}{)}
+    \PYG{p}{\PYGZob{}}
+        \PYG{k}{struct} \PYG{n}{\PYGZus{}send\PYGZus{}msg\PYGZus{}box} \PYG{o}{*}\PYG{n}{b} \PYG{o}{=} \PYG{p}{(}\PYG{k}{struct} \PYG{n}{\PYGZus{}send\PYGZus{}msg\PYGZus{}box} \PYG{o}{*}\PYG{p}{)}\PYG{n}{arg}\PYG{p}{;}
+
+        \PYG{k}{if} \PYG{p}{(}\PYG{n}{test\PYGZus{}rcv}\PYG{p}{(}\PYG{n}{plx}\PYG{p}{,} \PYG{n}{b}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{mode}\PYG{p}{,} \PYG{n}{b}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{min}\PYG{p}{,} \PYG{n}{b}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{max}\PYG{p}{,} \PYG{n}{b}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{x1}\PYG{p}{,} \PYG{n}{b}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{x2}\PYG{p}{))}
+            \PYG{k}{return} \PYG{n}{t}\PYG{p}{;}
+        \PYG{k}{return} \PYG{n+nb}{NULL}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{c+c1}{// sendsys.c, linha 220}
+    \PYG{k+kt}{void} \PYG{n+nf}{send\PYGZus{}msg}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{destination}\PYG{p}{,}   \PYG{c+cm}{/* Where to send to */}
+                \PYG{k+kt}{int} \PYG{n}{mode}\PYG{p}{,}          \PYG{c+cm}{/* Flags to control sending */}
+                \PYG{k+kt}{int} \PYG{n}{min}\PYG{p}{,}           \PYG{c+cm}{/* Minimum level of recipient */}
+                \PYG{k+kt}{int} \PYG{n}{max}\PYG{p}{,}           \PYG{c+cm}{/* Maximum level of recipient */}
+                \PYG{k+kt}{int} \PYG{n}{x1}\PYG{p}{,}            \PYG{c+cm}{/* Do not send to him */}
+                \PYG{k+kt}{int} \PYG{n}{x2}\PYG{p}{,}            \PYG{c+cm}{/* Nor to him */}
+                \PYG{k+kt}{char} \PYG{o}{*}\PYG{n}{format}\PYG{p}{,} \PYG{p}{...)} \PYG{c+cm}{/* Format with args \PYGZhy{}\PYGZgt{} text to send */}
+    \PYG{p}{\PYGZob{}}
+        \PYG{k}{struct} \PYG{n}{\PYGZus{}send\PYGZus{}msg\PYGZus{}box} \PYG{n}{b}\PYG{p}{;}
+        \PYG{n}{send\PYGZus{}g\PYGZus{}msg}\PYG{p}{(}\PYG{n}{destination}\PYG{p}{,} \PYG{n}{check\PYGZus{}send\PYGZus{}msg}\PYG{p}{,} \PYG{o}{\PYGZam{}}\PYG{n}{b}\PYG{p}{,} \PYG{n}{bf}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{c+c1}{// sendsys.c, linha 259}
+    \PYG{k+kt}{void} \PYG{n+nf}{sendf}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{destination}\PYG{p}{,} \PYG{k+kt}{char} \PYG{o}{*}\PYG{n}{format}\PYG{p}{,} \PYG{p}{...)}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n}{send\PYGZus{}g\PYGZus{}msg}\PYG{p}{(}\PYG{n}{destination}\PYG{p}{,} \PYG{n+nb}{NULL}\PYG{p}{,} \PYG{n+nb}{NULL}\PYG{p}{,} \PYG{n}{b}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{c+c1}{// sendsys.c, linha 262}
+    \PYG{k+kt}{void} \PYG{n}{gsendf}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{destination}\PYG{p}{,}
+            \PYG{k+kt}{char} \PYG{o}{*}\PYG{n}{func}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{plx}\PYG{p}{,} \PYG{k+kt}{void} \PYG{o}{*} \PYG{n}{arg}\PYG{p}{,} \PYG{k+kt}{char} \PYG{o}{*}\PYG{n}{text}\PYG{p}{),}
+            \PYG{k+kt}{void} \PYG{o}{*} \PYG{n}{arg}\PYG{p}{,}
+            \PYG{k+kt}{char} \PYG{o}{*}\PYG{n}{format}\PYG{p}{,} \PYG{p}{...)}
+\end{Verbatim}

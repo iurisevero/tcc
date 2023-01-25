@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    /usr/bin/install \PYGZhy{}c \PYGZhy{}m \PYG{l+m}{644} ./dbm.h /usr/local/include/dbm.h
+    /usr/bin/install \PYGZhy{}c \PYGZhy{}m \PYG{l+m}{644}
+    /usr/bin/install: missing file operand
+    Try \PYG{l+s+s1}{\PYGZsq{}/usr/bin/install \PYGZhy{}\PYGZhy{}help\PYGZsq{}} \PYG{k}{for} more information.
+\end{Verbatim}

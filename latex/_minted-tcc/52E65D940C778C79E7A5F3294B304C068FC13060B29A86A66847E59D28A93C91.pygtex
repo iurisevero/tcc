@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    generate.c: In \PYG{k}{function} \PYG{l+s+s1}{\PYGZsq{}make\PYGZus{}verbs\PYGZsq{}}:
+    generate.c:104:18: error: \PYG{l+s+s1}{\PYGZsq{}sys\PYGZus{}errlist\PYGZsq{}} undeclared \PYG{o}{(}first use in this \PYG{k}{function}\PYG{o}{)}
+      \PYG{l+m}{104} \PYG{p}{|}             buff,sys\PYGZus{}errlist\PYG{l+s+se}{\PYGZbs{}[}errno\PYG{l+s+se}{\PYGZbs{}]}\PYG{o}{)}\PYG{p}{;}
+          \PYG{p}{|}                  \PYGZca{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}\PYGZti{}
+\end{Verbatim}

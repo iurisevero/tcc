@@ -1,0 +1,460 @@
+\section[Evolução e Manutenção Dyrt]{Evolução e Manutenção Dyrt}
+\label{section:evolDyrt}
+
+Essa seção tem como objetivo apresentar os esforços realizados para correção do código do Dyrt.
+
+\subsection{Intalação GDBM}
+
+O primeiro passo para instalação do Dyrt é a instalação do GDBM, gerenciador de banco de dados utilizado 
+pelo programa. A base de dados fornecia junto a seus arquivos a versão 1.7.3 desse gerenciador, lançada em 1995.
+
+GNU dbm é uma biblioteca de funções de banco de dados que usa hashing extensível e funciona de maneira 
+semelhante ao dbm padrão do UNIX. Ele permite armazenar pares chave/dado em um arquivo de dados, buscar 
+e recuperar dados pela chave e deletar uma chave com seus dados. Também suporta a iteração sequencial 
+sobre todos os pares chave/dado em um banco de dados. Possui compatibilidade com programas que usam as 
+antigas funções dbm do UNIX \cite{GDBM}.
+
+A instalação da versão 1.7.3 do GDBM consiste em duas etapas: executar o programa de configuração das 
+variáveis de instalação do gerenciador (\verb|./configure|); compilar o GDBM (\verb|make|); 
+e instalar o pacote básico (\verb|make install|). Tanto o segundo quanto o terceiro passos são realizados 
+com o auxílio de um \textit{Makefile}. Ainda existem duas etapas opcionais para compilar os programas 
+opcionais de teste e conversão (\verb|make progs|) e para instalar os cabeçalhos opcionais de 
+compatibilidade dbm e ndbm (\verb|make install-compat|).
+
+Não houveram problemas na realização da configuração e da compilação, porém ao executar a instalação dos 
+pacotes básicos foram encontrados os erros \ref{lst:gdbmMan3Err} e \ref{lst:gdbmInfoErr}. Para corrigí-los 
+foi feita a criação das pastas "man3" e "info" nos caminhos de diretório "/usr/local/man" e "/usr/local", 
+respectivamente. Após isso também foram feitas alterações no \textit{Makefile} do GDBM, para que esses 
+erros não voltassem a acontecer, código \ref{lst:gdbmMakefileUpt}.
+
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{bash}
+    /usr/bin/install -c -m 644 ./gdbm.3 /usr/local/man/man3/gdbm.3
+    /usr/bin/install: cannot create regular file '/usr/local/man/man3/gdbm.3': No such file or directory
+    \end{minted}
+\caption{Erro: Pasta man3 não encontrada}
+\label{lst:gdbmMan3Err}
+\end{listing}
+
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{bash}
+    /usr/bin/install -c -m 644 ./gdbm.info /usr/local/info/gdbm.info
+    /usr/bin/install: cannot create regular file '/usr/local/info/gdbm.info': No such file or directory
+    \end{minted}
+\caption{Erro: Pasta info não encontrada}
+\label{lst:gdbmInfoErr}
+\end{listing}
+
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{make}
+    # GDBM Makefile, linha 96
+    install: libgdbm.a gdbm.h gdbm.info
+        $(INSTALL_DATA) libgdbm.a $(libdir)/libgdbm.a
+        $(INSTALL_DATA) gdbm.h $(includedir)/gdbm.h
+        @mkdir -p $(man3dir) # comando adicionado
+        $(INSTALL_DATA) $(srcdir)/gdbm.3 $(man3dir)/gdbm.3
+        @mkdir -p $(infodir) # comando adicionado
+        $(INSTALL_DATA) $(srcdir)/gdbm.info $(infodir)/gdbm.info
+    \end{minted}
+\caption{GDBM \textit{Makefile} atualizado}
+\label{lst:gdbmMakefileUpt}
+\end{listing}
+
+Ambas partes opcionais da intalação resultaram em erros ao serem executadas. Por não serem obrigatórias 
+para o funcionamento do sistemas, esses erros não foram corrigidos, mas podem ser vistos no códigos 
+\ref{lst:errorMakeProgs} e \ref{lst:errorInstallCompat} \textcolor{red}{Jogar para apendice?}.
+
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{bash}
+    /usr/bin/ld: tndbm.o: in function 'main':
+    tndbm.c:(.text+0x1b5): warning: the 'gets' function is dangerous and should not be used.
+    /usr/bin/ld: tndbm.c:(.text+0x56): undefined reference to `dbm_open'
+    /usr/bin/ld: tndbm.c:(.text+0x12c): undefined reference to `dbm_firstkey'
+    /usr/bin/ld: tndbm.c:(.text+0x14b): undefined reference to `dbm_fetch'
+    /usr/bin/ld: tndbm.c:(.text+0x188): undefined reference to `dbm_close'
+    /usr/bin/ld: tndbm.c:(.text+0x1e3): undefined reference to `dbm_fetch'
+    /usr/bin/ld: tndbm.c:(.text+0x2bd): undefined reference to `dbm_store'
+    /usr/bin/ld: tndbm.c:(.text+0x386): undefined reference to `dbm_delete'
+    /usr/bin/ld: tndbm.c:(.text+0x3c5): undefined reference to `dbm_nextkey'
+    /usr/bin/ld: tndbm.c:(.text+0x3e0): undefined reference to `dbm_fetch'
+    /usr/bin/ld: tndbm.c:(.text+0x42e): undefined reference to `dbm_firstkey'
+    /usr/bin/ld: tndbm.c:(.text+0x44a): undefined reference to `dbm_nextkey'
+    \end{minted}
+\caption{Erro ao compilar os programas opcionais de teste e conversão}
+\label{lst:errorMakeProgs}
+\end{listing}
+
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{bash}
+    /usr/bin/install -c -m 644 ./dbm.h /usr/local/include/dbm.h
+    /usr/bin/install -c -m 644
+    /usr/bin/install: missing file operand
+    Try '/usr/bin/install --help' for more information.
+    \end{minted}
+\caption{Erro ao instalar os cabeçalhos opcionais de compatibilidade dbm e ndbm}
+\label{lst:errorInstallCompat}
+\end{listing}
+
+\subsection{Instalando o Dyrt}
+
+Após a instalação do GDBM, os passos para instalar o Dyrt consistem em configurar as variáveis de instalação 
+e compilar o programa, com auxílio do \textit{Makefile}. Os dois primeiros passos são alterar os valores 
+referentes ao ambiente onde o jogo irá ser rodado no arquivo "config.h", encontrado na pasta "../include/", 
+e rodar o comando \verb|make depend|. Ambos passos fora realizados sem problemas. Após isso é necessário 
+compilar o jogo com o comando \verb|make|.
+
+Diferente da etapa de configuração, a compilação resultou em diversos erros e alertas. A maioria desses erros 
+eram consequência de atualizações em bibliotecas e até mesmo no próprio compilador de C, o que fez com que 
+algum deles se repetissem diversas vezes, porém em arquivos difentes. 
+
+O primeiro erro corrigido foi referente ao uso da variável \verb|sys_errlist[errno]|, que está depreciada 
+e foi substituída pela função \verb|strerror(errno)| (Código \ref{lst:erroSysErrlist}). A correção foi 
+realizada nos arquivos "boostrap.c", "generate.c", "log.c", "main.c", "misc.c" e "timing.c", em 10 
+trechos diferentes do código.
+
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{bash}
+    generate.c: In function 'make_verbs':
+    generate.c:104:18: error: 'sys_errlist' undeclared (first use in this function)
+      104 |             buff,sys_errlist[errno]);
+          |                  ^~~~~~~~~~~
+    \end{minted}
+\caption{Exemplo de erro resultante do uso da variável sys\_errlist[errno]}
+\label{lst:erroSysErrlist}
+\end{listing}
+
+O segundo erro encontrado foi resultado da definição de um caminho de diretório para o executável do 
+compilador de C++ que não é mais o adotado (Código \ref{lst:erroLibCPP}). A correção foi simples, bastou atualizar o caminho definido 
+na constantes \verb|CPP|, declarada no arquivo "/include/machine/linux.h" (Código \ref{lst:CPPLinuxH}).
+
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{bash}
+    gcc -o ..//bin/generate -DDEBUG -g -O4 -I..//include/ -DLINUX -DREBOOT generate.o -lgdbm -lcrypt
+    Regenerating World....
+    ..//bin/generate data ../
+    (*) Generating dyrt userfiles...
+
+    sh: line 1: //lib/cpp: No such file or directory
+
+    Zone not found: limbo in file ..//data/WORLD/limbo.zone.
+    \end{minted}
+\caption{Tentativa de acesso ao caminho de diretório /lib/cpp}
+\label{lst:erroLibCPP}
+\end{listing}
+
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{c}
+    // linux.h, linha 6
+    // Definição original
+    #define CPP "//usr/bin/cpp -P -traditional -I ../include %s"
+    // Caminho atualizado
+    #define CPP "//usr/bin/cpp -P -traditional -I ../include %s"
+    \end{minted}
+\caption{Definição da constante CPP no arquivo linux.h}
+\label{lst:CPPLinuxH}
+\end{listing}
+
+Após esse erro, apareceram diversos erros de variáveis e funções redeclaradas, declarações implícitas e 
+referencias inválidas. O código \ref{lst:errorsCompilation} apresenta um compilado de todos esses erros, 
+na ordem em que apareceram. 
+
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{bash}
+    main.c: In function 'get_options':
+    main.c:634:15: error: invalid storage class for function 'usage'
+      634 |   static void usage (void);
+          |               ^~~~~
+    main.c: In function 'main_loop':
+    main.c:767:15: error: invalid storage class for function 'new_connection'
+      767 |   static void new_connection (int fd);
+          |               ^~~~~~~~~~~~~~
+
+    sflag.c:565:1: error: static declaration of '_wiz' follows non-static declaration
+    sflag.c:522:3: note: previous implicit declaration of '_wiz' with type 'void(int,  char *)'
+      522 |   _wiz (LVL_APPRENTICE, wordbuf);
+          |   ^~~~
+
+    /usr/bin/ld: errno: TLS definition in /usr/lib/libc.so.6 section .tbss mismatches non-TLS reference in bootstrap.o
+    /usr/bin/ld: /usr/lib/libc.so.6: error adding symbols: bad value
+    collect2: error: ld returned 1 exit status
+    make: *** [Makefile:158: ..//bin/aberd] Error 1
+
+    gcc -o aberd -DDEBUG -g -O4 -I..//include/ -DLINUX -DREBOOT actions.o admin.o board.o bootstrap.o bprintf.o calendar.o change.o clone.o commands.o communicate.o condition.o fight.o flags.o frob.o game.o hate.o log.o magic.o mail.o main.o misc.o mobile.o move.o mud.o objsys.o parse.o party.o rooms.o s_socket.o sendsys.o sflag.o timing.o uaf.o utils.o wizard.o wizlist.o writer.o zones.o  -lgdbm -lcrypt
+    /usr/bin/ld: admin.o:/home/iuri/Desktop/pibic/Pibic/dyrt_19/dyrt/src/..//include/mud.h:15: 		 multiple definition of `a_new_player'; actions.o:/home/iuri/Desktop/pibic/Pibic/dyrt_19/dyrt/src/..//include/mud.h:15: first defined here
+    /usr/bin/ld: timing.o:/home/iuri/Desktop/pibic/Pibic/dyrt_19/dyrt/src/timing.c:56:		 		 multiple definition of `next_event'; mud.o:/home/iuri/Desktop/pibic/Pibic/dyrt_19/dyrt/src/..//include/global.h:86: first defined here
+    \end{minted}
+\caption{Compilado de erros levantados ao executar o comando make}
+\label{lst:errorsCompilation}
+\end{listing}
+
+A funções \verb|usage (void)| e \verb|new_connection (int fd)| já haviam sido declaradas no arquivo "main.c", 
+nas linhas 40 e 45, e, para corrigir o erro, bastou comentar a redeclaração delas, nas linhas 634 e 767. 
+A função \verb|static void _wiz(int, char *)| era chamada diversas vezes antes da sua declaração, para correção 
+desse erro foi adicionado um cabeçalho de declaração para função, no início do arquivo "sflag.c". A definição 
+da variável \verb|errno| não estava correspondendo com a sua definição, pois estava sendo acessada a partir 
+da declaração \verb|extern int errno;|. A correção foi feita a partir da remoção da declaração de \verb|errno| 
+como uma variável externa e inclusão da biblioteca \verb|errno.h|. Por fim, foram adicionadas as variáveis 
+\verb|extern Boolean a_new_player| na biblioteca "mud.h" e \verb|extern time_t next_event;| no arquivo 
+"timing.c", e a biblioteca "mud.h" foi incluída ao arquivo "mud.c".
+
+Após a correção de todos os erros, o comando \verb|make| foi executado sem erros. Foi necessário 
+executar o script "verbgen" para geração dos verbos e essa ação se mostrou necessária em toda compilação 
+após a limpeza dos arquivos (\verb|make clean|).
+
+\subsection{Executando o Dyrt}
+
+Apesar da compilação ter sido bem sucedida, a linkagem do executável não aconteceu como deveria, 
+impedindo sua execução pelo comando \verb|aberd &|, como recomendado pelas instruções de instalação. 
+Porém, a execução direta do binário criado funcionou.
+
+A primeira execução do MUD gerou a saída apresentada no código \ref{lst:dyrtExecError1}. O resultado final 
+foi uma falha de segmentação de memória, erro que acontece quando o software tenta acessar uma área 
+restrita de memória (uma violação de acesso à memória) \textcolor{red}{(procurar fonte)}. 
+
+Para depuração do código foi utilizada a função \verb|printf| em conjunto com a execução do programa, 
+com o objetivo de encontrar a função onde o erro acontecia. Após várias execuções, foi descoberto que o 
+erro era levantado pela função \verb|gdbm_open|, da biblioteca GMDB, em sua versão 1.7.3. Para correção 
+do erro, foi feita a atualização da biblioteca para sua versão mais atual, 1.23, lançada em 2022. Não 
+houveram erros decorrentes da alteração realizada.
+
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{bash}
+    data_dir = "../data/".
+    max_players = 40.
+    port = 6715.
+    Do not clear syslog file.
+    Debugging is on.
+    Kill other mud.
+    Bootstrap... ID-table & ID-counter used 8192 bytes.
+    Bootstrap... 'players' used 602880 bytes.
+    Bootstrap... A:actions used 61780 bytes.
+    Bootstrap... Z:zones used 7856 bytes.
+    Bootstrap... L:locations used 923949 bytes.
+    Bootstrap... C:mobiles used 192716 bytes.
+    Bootstrap... E:levels used 0 bytes.
+    Bootstrap... H:hours used 0 bytes.
+    Bootstrap... I:intermud.conf used 0 bytes.
+    Bootstrap... O:objects used 279263 bytes.
+    Bootstrap... P:pflags used 0 bytes.
+    Bootstrap... V:verbs used 3200 bytes.
+    Bootstrap... W:wizlist ---->Can't open W file wizlist used 0 bytes.
+    
+    A total of 2071644 bytes used.
+    Connected to port 6715 on lucas-tkp.
+    Segmentation fault (core dumped)
+    \end{minted}
+\caption{Saída apresentada pela execução do Dyrt}
+\label{lst:dyrtExecError1}
+\end{listing}
+
+Apesar da correção ter tido êxito, a segunda execução do programa teve o mesmo resultado, sendo finalizada 
+por um erro de segmentação. No entanto, o erro estava acontecendo por outro motivo. A princípio foi 
+feita uma depuração utilizando o \verb|printf| novamente, o que indicou que o erro ocorria na função 
+\verb|consid_move|. A partir dessa função, a depuração com a função \verb|printf| se tornou inviável, 
+uma vez que a função \verb|consid_move| era chamada dentro de um laço de repetição que iterava 338 vezes. 
+Para contornar esse problema foi utilizado o GDB (GNU Project Debugger), que indicou que o erro partia 
+da função \verb|check_send_msg|, localizada no arquivo "sendsys.c", na linha 210, devido a uma conversão 
+de um valor inteiro negativo para ponteiro do tipo \verb|struct _send_msg_box| (Código \ref{lst:checkSendMsgOri}).
+
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{c}
+    // sendsys.c, linha 210
+    char *check_send_msg(int plx, int a, char *t)
+    {
+        struct _send_msg_box *b = (struct _send_msg_box *)a;
+
+        if (test_rcv(plx, b->mode, b->min, b->max, b->x1, b->x2))
+            return t;
+        return NULL;
+    }
+    \end{minted}
+\caption{Função check\_send\_msg original}
+\label{lst:checkSendMsgOri}
+\end{listing}
+
+Ao realizar a depuração da função \verb|check_send_msg|, foi observado que tanto a função quanto a 
+variável convertida eram transmitidas como parâmetro para função \verb|send_g_msg| pela função 
+\verb|send_msg|, ambas localizadas no arquivo "sendsys.c", nas linhas 114 e 220, respectivamente 
+(Códigos \ref{lst:sendGMsgOri} e \ref{lst:sendMsgOri}).
+
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{c}
+    // sendsys.c, linha 114
+    /* Send general message.  */
+    void send_g_msg(int destination,                       /* Where to send to */
+                    char *func(int plx, int arg, char *t), /* Test function */
+                    int arg,                               /* Argument to test */
+                    char *text)                            /* Text to send */
+    \end{minted}
+\caption{Cabeçalho da função send\_g\_msg original}
+\label{lst:sendGMsgOri}
+\end{listing}
+
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{c}
+    // sendsys.c, linha 220
+    void send_msg(int destination,   /* Where to send to */
+                int mode,          /* Flags to control sending */
+                int min,           /* Minimum level of recipient */
+                int max,           /* Maximum level of recipient */
+                int x1,            /* Do not send to him */
+                int x2,            /* Nor to him */
+                char *format, ...) /* Format with args -> text to send */
+    {
+        struct _send_msg_box b;
+        b.mode = mode;
+        b.min = min;
+        b.max = max;
+        b.x1 = x1;
+        b.x2 = x2;
+        send_g_msg(destination, check_send_msg, (int)&b, bf);
+    }
+    \end{minted}
+\caption{Função send\_msg original}
+\label{lst:sendMsgOri}
+\end{listing}
+
+Para corrigir o erro, foi retirada a conversão da área de memória para inteiro, feita na chamada da função 
+\verb|send_g_msg| pela função \verb|send_msg|, e foram feitas alterações nos parâmetro das funções 
+\verb|send_g_msg| e \verb|gsendf|, localizada na linha 262, do arquivo "sendsys.c", que recebiam 
+\verb|char *func(int plx, int arg, char *text), int arg| e passaram a receber 
+\verb|char *func(int plx, void * arg, char *text), void * arg|. Dessa forma, a área de memória começou a 
+ser passada por completo para as outras funções, o que evitou o \textit{overflow} que podia acontecer quando 
+se tentava realizar a conversão para inteiro. Todas funções que foram afetadas pelas alterações também 
+foram adaptadas (Código \ref{lst:convertionErrorFix}).
+
+\begin{listing}[!ht]
+    \begin{minted}[
+        frame=lines,
+        bgcolor=LightGray,
+        fontsize=\footnotesize,
+        linenos,
+        breaklines
+    ]{c}
+    // sendsys.c, linha 114
+    void send_g_msg(int destination,                       /* Where to send to */
+                    char *func(int plx, void * arg, char *t), /* Test function */
+                    void * arg,                               /* Argument to test */
+                    char *text)                            /* Text to send */
+    
+    // sendsys.c, linha 210
+    char *check_send_msg(int plx, void * arg, char *t)
+    {
+        struct _send_msg_box *b = (struct _send_msg_box *)arg;
+
+        if (test_rcv(plx, b->mode, b->min, b->max, b->x1, b->x2))
+            return t;
+        return NULL;
+    }
+
+    // sendsys.c, linha 220
+    void send_msg(int destination,   /* Where to send to */
+                int mode,          /* Flags to control sending */
+                int min,           /* Minimum level of recipient */
+                int max,           /* Maximum level of recipient */
+                int x1,            /* Do not send to him */
+                int x2,            /* Nor to him */
+                char *format, ...) /* Format with args -> text to send */
+    {
+        struct _send_msg_box b;
+        send_g_msg(destination, check_send_msg, &b, bf);
+    }
+    
+    // sendsys.c, linha 259
+    void sendf(int destination, char *format, ...)
+    {
+        send_g_msg(destination, NULL, NULL, b);
+    }
+
+    // sendsys.c, linha 262
+    void gsendf(int destination,
+            char *func(int plx, void * arg, char *text),
+            void * arg,
+            char *format, ...)
+    \end{minted}
+\caption{Atualização das funções que realizam conversão de ponteiro para inteiro}
+\label{lst:convertionErrorFix}
+\end{listing}
+
+Não foram feitas mais alterações ao código do Dyrt. Após a correção da conversão de área de memória para 
+inteiro, o jogo parou de dar erro ao ser executado, porém demonstrou erros com a tentativa de conexão de 
+clientes. O acesso utilizando a ferramente \textit{telnet} quebra a aplicação de imediato. Não houve 
+tentativa de depuração para descobrir o motivo desse novo erro.
