@@ -1,0 +1,32 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} \PYGZhy{}*\PYGZhy{} mode: ruby \PYGZhy{}*\PYGZhy{}}
+\PYG{c+c1}{\PYGZsh{} vi: set ft=ruby :}
+
+\PYG{c+c1}{\PYGZsh{} All Vagrant configuration is done below. The \PYGZdq{}2\PYGZdq{} in Vagrant.configure}
+\PYG{c+c1}{\PYGZsh{} configures the configuration version (we support older styles for}
+\PYG{c+c1}{\PYGZsh{} backwards compatibility). Please don\PYGZsq{}t change it unless you know what}
+\PYG{c+c1}{\PYGZsh{} you\PYGZsq{}re doing.}
+\PYG{n+no}{Vagrant}\PYG{o}{.}\PYG{n}{configure}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}2\PYGZdq{}}\PYG{p}{)} \PYG{k}{do} \PYG{o}{|}\PYG{n}{config}\PYG{o}{|}
+    \PYG{c+c1}{\PYGZsh{} The most common configuration options are documented and commented below.}
+    \PYG{c+c1}{\PYGZsh{} For a complete reference, please see the online documentation at}
+    \PYG{c+c1}{\PYGZsh{} https://docs.vagrantup.com.}
+  
+    \PYG{c+c1}{\PYGZsh{} Every Vagrant development environment requires a box. You can search for}
+    \PYG{c+c1}{\PYGZsh{} boxes at https://vagrantcloud.com/search.}
+    \PYG{n}{config}\PYG{o}{.}\PYG{n}{vm}\PYG{o}{.}\PYG{n}{box} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}ubuntu/focal64\PYGZdq{}}
+  
+    \PYG{c+c1}{\PYGZsh{} Enable provisioning with a shell script. Additional provisioners such as}
+    \PYG{c+c1}{\PYGZsh{} Ansible, Chef, Docker, Puppet and Salt are also available. Please see the}
+    \PYG{c+c1}{\PYGZsh{} documentation for more information about their specific syntax and use.}
+    \PYG{c+c1}{\PYGZsh{} config.vm.provision \PYGZdq{}shell\PYGZdq{}, inline: \PYGZlt{}\PYGZlt{}\PYGZhy{}SHELL}
+    \PYG{c+c1}{\PYGZsh{}   apt\PYGZhy{}get update}
+    \PYG{c+c1}{\PYGZsh{}   apt\PYGZhy{}get install \PYGZhy{}y apache2}
+    \PYG{c+c1}{\PYGZsh{} SHELL}
+    \PYG{n}{config}\PYG{o}{.}\PYG{n}{vm}\PYG{o}{.}\PYG{n}{provision} \PYG{l+s+s2}{\PYGZdq{}shell\PYGZdq{}}\PYG{p}{,} \PYG{l+s+ss}{inline}\PYG{p}{:} \PYG{o}{\PYGZlt{}\PYGZlt{}\PYGZhy{}}\PYG{l+s+dl}{SHELL}
+\PYG{l+s+sh}{        apt update}
+\PYG{l+s+sh}{        apt install build\PYGZhy{}essentials gcc\PYGZhy{}10\PYGZhy{}doc libstdc++\PYGZhy{}10\PYGZhy{}doc}
+\PYG{l+s+sh}{        apt install libmsgsl\PYGZhy{}dev}
+\PYG{l+s+dl}{    SHELL}
+  \PYG{k}{end}
+  
+\end{Verbatim}

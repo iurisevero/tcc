@@ -83,3 +83,13 @@
 
 \renewcommand\listoflistingscaption{Lista de códigos}
 \renewcommand{\listingscaption}{Código}
+
+\newcommand{\inputcode}[4] {
+    \begin{listing}[ht]
+    \caption{#3}
+    \label{#4}
+    \inputminted[
+		breaklines,bgcolor=gray!10,fontsize=\small,linenos,numbersep=4pt
+	]{#1}{#2}
+    \end{listing}
+}

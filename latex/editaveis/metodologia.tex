@@ -1,0 +1,115 @@
+\chapter[Metodologia]{Metodologia}
+
+Para este estudo serão utilizadas as definições e tipos de manutenção e evolução de software 
+propostos por Chapin, em "Types of software evolution and software maintenance". 
+A partir da instruções listadas em seu artigo, é possível definir que será realizada uma evolução 
+adaptativa, uma vez que o software será evoluido para uma versão mais moderna de C++, o que irá 
+alterar as práticas de design e implementação, porém sem alterar suas funcionalidades.
+
+Apesar do tipo de evolução dominante ser a adaptativa, também será possível ver nas alterações realizadas 
+graus de manutenção avaliativa e para aperfeiçoamento, como explicado na seção \ref{section:chapinTypes}, 
+pela figura \ref{fig:relationAmongTypes}. Para realizar a evolução proposta será necessário analisar o 
+código original e, após a alterações, o código resultante será mais seguro e manutenível, abrangindo 
+os dois tipos citados \cite{chapin2001types}.
+
+\begin{citacao}
+    % A atualização de sistemas antigos é difícil. No entanto, acreditamos que um programa que usa uma regra é menos sujeito a erros e mais fácil de manter do que um que não usa \cite{stroustrup2022c++}.
+    Upgrading old systems is hard. However, we do believe that a program that uses a rule is less error-prone and more maintainable than one that does not \cite{stroustrup2022c++}.
+\end{citacao}
+
+A seção \ref{section:tcc1} irá apresentar a abordagem adotada para realização da primeira etapa deste TCC, 
+enquanto a seção \ref{section:tcc2} será responsável por expor o planejamento realizado para segunda etapa.
+
+\section{TCC 1}
+\label{section:tcc1}
+
+\textcolor{red}{Pensar em um título para essa seção}
+
+O desenvolvimento da primeira fase deste projeto não seguiu uma metodologia estabelecida. Como as fontes 
+de código avaliadas eram antigas, o objetivo principal definido foi fazer com que compilassem 
+corretamente. Para tal, foi realizado um processo iterativo de tentativas de compilação e correção de 
+erros, continuando até que o funcionamento do MUD fosse alcançado, como foi o caso com o SimpleMUD, ou 
+até que não houvesse mais progresso nas correções, como foi observado com o Dyrt.
+
+A compilação e execução do Dyrt foram realizadas em um ambiente Manjaro, versão 5.6, com o compilador 
+GCC, na versão 12.2. Já o SimpleMUD foi compilado e executado em uma máquina virtual, 
+utilizando a imagem Ubuntu 20.04.5 LTS (Focal Fossa), com o compilador G++, na versão 12.2. A máquina 
+virtual foi gerada e configurada com o uso do software Vagrant, na versão 2.3.4. O arquivo de 
+configuração utilizado pelo Vagrant está disponível no apêndice \ref{apendice:vagrantFile}.
+
+Após o sucesso na compilação e execução do SimpleMUD, foi iniciado um novo ciclo de atividades para a 
+sua evolução e manutenção. Este ciclo incluía a pesquisa das diretrizes básicas de C++, conforme 
+apresentadas por Bjarne Stroustrup e Herb Sutter, bem como outras práticas recomendadas, como aquelas 
+apresentadas pelo canal de Youtube de Jason Turner, intitulado C++ Weekly\footnote{\url{https://www.youtube.com/@cppweekly}}. 
+Além disso, foi realizada uma análise do código para identificar trechos que pudessem ser melhorados. 
+Depois de realizada a análise, as atualizações eram implementadas e documentadas. A análise e o 
+planejamento para atualização do código eram realizados em pareamentos com o professor Edson.
+
+Durante a primeira etapa, a falta de uma metodologia formal de desenvolvimento resultou em uma evolução 
+mal documentada do código. Não houve uma estratégia clara de melhoria, as modificações foram realizadas 
+baseadas nas percepções e conhecimentos prévios dos desenvolvedores envolvidos, e não foram coletados 
+dados quantitativos para comprovar a efetividade dessas alterações.
+
+\section{TCC 2}
+\label{section:tcc2}
+
+\textcolor{red}{Pensar em um título para essa seção}
+
+A segunda etapa deste TCC tem como objetivo principal organizar o ambiente de desenvolvimento do 
+SimpleMUD, de modo a garantir uma evolução e manutenção eficazes. De acordo com Turner, são cruciais para 
+o desenvolvimento adequado em C++: Ambiente de construção contínuo; Utilização do máximo de compiladores 
+possíveis; Uma estrutura de teste organizada; Análise, relatórios e rastreamento da cobertura de teste; 
+O máximo de análise estática possível; Análise de tempo de execução durante os testes; Teste de fuzz; 
+Lançamento com reforço de segurança habilitado. \cite{turnerC++Weekly350}. No entanto, suprir todas essas necessidades para um desenvolvimento adequado não é algo trivial e, para isso, 
+será necessário um planejamento prévio.
+
+Para o planejamento é possível utilizar metodologias e artefatos já conhecidos da engenharia de software, 
+como o Kanban ou a criação de um \textit{backlog} com as atividades a serem realizadas. A priorização do 
+que será feito também é essencial, uma vez que nem todos requisitos elicitados por Turner são necessariamente 
+significativos no contexto abordado.
+
+Por fim, uma vez que o ambiente de desenvolvimento for implementado, será possível realizar uma avaliação 
+quantitativa da base de código analisada e elaborar um plano de melhoria apropriado. Além disso, as 
+modificações realizadas na primeira etapa poderão ser avaliadas, uma vez que todo o código foi versionado 
+com a ferramenta Git e armazenado no Github.
+
+\section{Ferramentas Utilizadas}
+
+Nesta seção serão detalhadas as ferramentas utilizadas para o desenvolvimento deste TCC. É importante 
+destacar que outras ferramentas serão acrescentadas ao decorrer da segunda etapa, visto que os passos 
+estabelecidos por Turner requerem o uso de vários recursos externos.
+
+\begin{citacao}
+    % Se você está desenvolvendo às cegas, sem nenhuma orientação de ferramenta, você está utilizando C++ errado \cite{turnerC++Weekly350}.
+    If you are developing blindly, without any tool guidance, you are doing C++ wrong \cite{turnerC++Weekly350}.
+\end{citacao}
+
+\subsection{Git}
+
+Git é uma ferramenta gratuita e de código aberto de controle de versão distribuído, desenvolvida por 
+Linus Torvalds em 2005. Alguns dos objetivos desse sistema incluem velocidade, design simples, forte 
+suporte ao desenvolvimento não linear (milhares de ramificações paralelas), totalmente distribuído e 
+capaz de lidar eficientemente com projetos de grande porte, como o núcleo do Linux (velocidade e tamanho 
+de dados). Desde o seu nascimento em 2005, o Git evoluiu e amadureceu para ser fácil de usar e ainda 
+retêm essas qualidades iniciais \cite{chacon2014pro}.
+
+\subsection{GitHub}
+
+GitHub é uma plataforma de gerenciamento de código baseada na web que fornece soluções completas para 
+armazenamento, controle de versão e colaboração em projetos. Ela hospeda repositórios do Git e oferece 
+aos desenvolvedores ferramentas eficientes como linha de comando, problemas (discussões encadeadas), 
+\textit{pull requests}, revisão de código e acesso a uma ampla coleção de aplicativos grátis e pagos no 
+GitHub Marketplace. Oferece planos gratuitos e pagos para usuários pessoais e organizações, permitindo 
+que colaboradores trabalhem juntos em repositórios públicos ou privados com acesso a diferentes conjuntos 
+de recursos. Com uma comunidade de 15 milhões de desenvolvedores, juntamente com integrações eficientes, 
+GitHub revoluciona a forma como o software é construído \cite{github}.
+
+\subsection{Vagrant}
+
+Vagrant é uma ferramenta destinada à construção e gestão de ambientes de desenvolvimento completos 
+baseados em máquinas virtuais. Com uma abordagem fácil de usar e focada na automação, Vagrant contribui 
+para a redução do tempo de configuração do ambiente de desenvolvimento e para o aumento da correspondência 
+entre o desenvolvimento e a produção. As máquinas virtuais podem ser provisionadas por diversos provedores, 
+tais como o VirtualBox, VMware, AWS, e outros. As ferramentas de provisionamento padrão da indústria, 
+como shell scripts, Chef ou Puppet, podem ser empregadas para a instalação e configuração automatizadas 
+do software na máquina virtual.

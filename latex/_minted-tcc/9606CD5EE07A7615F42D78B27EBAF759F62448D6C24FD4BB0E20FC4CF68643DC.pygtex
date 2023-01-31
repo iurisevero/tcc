@@ -1,0 +1,78 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} \PYGZhy{}*\PYGZhy{} mode: ruby \PYGZhy{}*\PYGZhy{}}
+\PYG{c+c1}{\PYGZsh{} vi: set ft=ruby :}
+
+\PYG{c+c1}{\PYGZsh{} All Vagrant configuration is done below. The \PYGZdq{}2\PYGZdq{} in Vagrant.configure}
+\PYG{c+c1}{\PYGZsh{} configures the configuration version (we support older styles for}
+\PYG{c+c1}{\PYGZsh{} backwards compatibility). Please don\PYGZsq{}t change it unless you know what}
+\PYG{c+c1}{\PYGZsh{} you\PYGZsq{}re doing.}
+\PYG{n+no}{Vagrant}\PYG{o}{.}\PYG{n}{configure}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}2\PYGZdq{}}\PYG{p}{)} \PYG{k}{do} \PYG{o}{|}\PYG{n}{config}\PYG{o}{|}
+    \PYG{c+c1}{\PYGZsh{} The most common configuration options are documented and commented below.}
+    \PYG{c+c1}{\PYGZsh{} For a complete reference, please see the online documentation at}
+    \PYG{c+c1}{\PYGZsh{} https://docs.vagrantup.com.}
+  
+    \PYG{c+c1}{\PYGZsh{} Every Vagrant development environment requires a box. You can search for}
+    \PYG{c+c1}{\PYGZsh{} boxes at https://vagrantcloud.com/search.}
+    \PYG{n}{config}\PYG{o}{.}\PYG{n}{vm}\PYG{o}{.}\PYG{n}{box} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}ubuntu/focal64\PYGZdq{}}
+  
+    \PYG{c+c1}{\PYGZsh{} Disable automatic box update checking. If you disable this, then}
+    \PYG{c+c1}{\PYGZsh{} boxes will only be checked for updates when the user runs}
+    \PYG{c+c1}{\PYGZsh{} `vagrant box outdated`. This is not recommended.}
+    \PYG{c+c1}{\PYGZsh{} config.vm.box\PYGZus{}check\PYGZus{}update = false}
+  
+    \PYG{c+c1}{\PYGZsh{} Create a forwarded port mapping which allows access to a specific port}
+    \PYG{c+c1}{\PYGZsh{} within the machine from a port on the host machine. In the example below,}
+    \PYG{c+c1}{\PYGZsh{} accessing \PYGZdq{}localhost:8080\PYGZdq{} will access port 80 on the guest machine.}
+    \PYG{c+c1}{\PYGZsh{} NOTE: This will enable public access to the opened port}
+    \PYG{c+c1}{\PYGZsh{} config.vm.network \PYGZdq{}forwarded\PYGZus{}port\PYGZdq{}, guest: 80, host: 8080}
+  
+    \PYG{c+c1}{\PYGZsh{} Create a forwarded port mapping which allows access to a specific port}
+    \PYG{c+c1}{\PYGZsh{} within the machine from a port on the host machine and only allow access}
+    \PYG{c+c1}{\PYGZsh{} via 127.0.0.1 to disable public access}
+    \PYG{c+c1}{\PYGZsh{} config.vm.network \PYGZdq{}forwarded\PYGZus{}port\PYGZdq{}, guest: 80, host: 8080, host\PYGZus{}ip: \PYGZdq{}127.0.0.1\PYGZdq{}}
+  
+    \PYG{c+c1}{\PYGZsh{} Create a private network, which allows host\PYGZhy{}only access to the machine}
+    \PYG{c+c1}{\PYGZsh{} using a specific IP.}
+    \PYG{c+c1}{\PYGZsh{} config.vm.network \PYGZdq{}private\PYGZus{}network\PYGZdq{}, ip: \PYGZdq{}192.168.33.10\PYGZdq{}}
+  
+    \PYG{c+c1}{\PYGZsh{} Create a public network, which generally matched to bridged network.}
+    \PYG{c+c1}{\PYGZsh{} Bridged networks make the machine appear as another physical device on}
+    \PYG{c+c1}{\PYGZsh{} your network.}
+    \PYG{c+c1}{\PYGZsh{} config.vm.network \PYGZdq{}public\PYGZus{}network\PYGZdq{}}
+  
+    \PYG{c+c1}{\PYGZsh{} Share an additional folder to the guest VM. The first argument is}
+    \PYG{c+c1}{\PYGZsh{} the path on the host to the actual folder. The second argument is}
+    \PYG{c+c1}{\PYGZsh{} the path on the guest to mount the folder. And the optional third}
+    \PYG{c+c1}{\PYGZsh{} argument is a set of non\PYGZhy{}required options.}
+    \PYG{c+c1}{\PYGZsh{} config.vm.synced\PYGZus{}folder \PYGZdq{}../data\PYGZdq{}, \PYGZdq{}/vagrant\PYGZus{}data\PYGZdq{}}
+  
+    \PYG{c+c1}{\PYGZsh{} Provider\PYGZhy{}specific configuration so you can fine\PYGZhy{}tune various}
+    \PYG{c+c1}{\PYGZsh{} backing providers for Vagrant. These expose provider\PYGZhy{}specific options.}
+    \PYG{c+c1}{\PYGZsh{} Example for VirtualBox:}
+    \PYG{c+c1}{\PYGZsh{}}
+    \PYG{c+c1}{\PYGZsh{} config.vm.provider \PYGZdq{}virtualbox\PYGZdq{} do |vb|}
+    \PYG{c+c1}{\PYGZsh{}   \PYGZsh{} Display the VirtualBox GUI when booting the machine}
+    \PYG{c+c1}{\PYGZsh{}   vb.gui = true}
+    \PYG{c+c1}{\PYGZsh{}}
+    \PYG{c+c1}{\PYGZsh{}   \PYGZsh{} Customize the amount of memory on the VM:}
+    \PYG{c+c1}{\PYGZsh{}   vb.memory = \PYGZdq{}1024\PYGZdq{}}
+    \PYG{c+c1}{\PYGZsh{} end}
+    \PYG{c+c1}{\PYGZsh{}}
+    \PYG{c+c1}{\PYGZsh{} View the documentation for the provider you are using for more}
+    \PYG{c+c1}{\PYGZsh{} information on available options.}
+  
+    \PYG{c+c1}{\PYGZsh{} Enable provisioning with a shell script. Additional provisioners such as}
+    \PYG{c+c1}{\PYGZsh{} Ansible, Chef, Docker, Puppet and Salt are also available. Please see the}
+    \PYG{c+c1}{\PYGZsh{} documentation for more information about their specific syntax and use.}
+    \PYG{c+c1}{\PYGZsh{} config.vm.provision \PYGZdq{}shell\PYGZdq{}, inline: \PYGZlt{}\PYGZlt{}\PYGZhy{}SHELL}
+    \PYG{c+c1}{\PYGZsh{}   apt\PYGZhy{}get update}
+    \PYG{c+c1}{\PYGZsh{}   apt\PYGZhy{}get install \PYGZhy{}y apache2}
+    \PYG{c+c1}{\PYGZsh{} SHELL}
+    \PYG{n}{config}\PYG{o}{.}\PYG{n}{vm}\PYG{o}{.}\PYG{n}{provision} \PYG{l+s+s2}{\PYGZdq{}shell\PYGZdq{}}\PYG{p}{,} \PYG{l+s+ss}{inline}\PYG{p}{:} \PYG{o}{\PYGZlt{}\PYGZlt{}\PYGZhy{}}\PYG{l+s+dl}{SHELL}
+\PYG{l+s+sh}{        apt update}
+\PYG{l+s+sh}{        apt install build\PYGZhy{}essentials gcc\PYGZhy{}10\PYGZhy{}doc libstdc++\PYGZhy{}10\PYGZhy{}doc}
+\PYG{l+s+sh}{        apt install libmsgsl\PYGZhy{}dev}
+\PYG{l+s+dl}{    SHELL}
+  \PYG{k}{end}
+  
+\end{Verbatim}
