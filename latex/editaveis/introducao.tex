@@ -1,9 +1,85 @@
 \chapter*[Introdução]{Introdução}
 \addcontentsline{toc}{chapter}{Introdução}
 
-Este documento apresenta considerações gerais e preliminares relacionadas 
-à redação de relatórios de Projeto de Graduação da Faculdade UnB Gama 
-(FGA). São abordados os diferentes aspectos sobre a estrutura do trabalho, 
-uso de programas de auxilio a edição, tiragem de cópias, encadernação, etc.
+\section{Contextualização}
 
-Este template é uma adaptação do ABNTeX2\footnote{\url{https://github.com/abntex/abntex2/}}.
+\textit{Multi-user Dungeon} é um gênero de jogos que surgiu em meados dos anos 80 e, desde sua origem, 
+se demonstraram como sofwares complexos, diversificados e adaptáveis. Os MUDs foram os primeiros mundos 
+virtuais a fazerem sucesso e serviram como base para o desenvolvimento de diversos outros softwares, 
+como MMORPGs e alguns simuladores \cite{bartle2004designing,penton2003mud}.
+
+Devido à sua natureza, os MUDs requerem o uso de tecnologias distintas para sua operação e abrangem uma 
+ampla gama de disciplinas da engenharia de software. O componente \textit{multiplayer} exige habilidades 
+na programação de redes, enquanto a gestão dos jogadores necessita de conhecimentos em bancos de dados ou 
+manipulação de arquivos. Além disso, é indispensável ter familiaridade com \textit{multithreading}, 
+estruturas de dados e outros aspectos para o desenvolvimento do jogo propriamente dito.
+
+Com a evolução das capacidades gráficas dos computadores, os jogadores migraram dos MUDs baseados em texto 
+para mundos virtuais com gráficos bidimensionais e tridimensionais, assim como os desenvolvedores \cite{bartle2004designing}, 
+porém a forma como o software era estruturado se manteve. Quase todos os jogos estilo mundo virtual 
+possuem estruturas similares por baixo dos panos \cite{penton2003mud}.
+
+\section{Justificativa/Motivação}
+
+Apesar de terem se tornado ultrapassados, o código base dos MUDs ainda pode ser considerado material valioso 
+para fins educacionais. Disponibilizar um MUD em funcionamento em uma instituição acadêmica permitiria aos 
+alunos a oportunidade de jogar, testar e analisar o jogo, a fim de compreender mais profundamente seu 
+desenvolvimento, arquitetura e outros aspectos relevantes \textcolor{red}{(sem fonte)}.
+
+Além disso, também seria possível evoluir o MUD, de maneira que ele se torne mais seguro, escalável e até 
+mesmo mais lúdico. Em sua conclusão, Penton discute as possíveis melhorias que podem ser feitas nos MUDs 
+que ele desenvolveu, e destaca em vários momentos como o código pode ser personalizado pelo desenvolvedor 
+para que o jogo possua um estilo único.
+
+Existem muitos aspectos que precisam ser considerados na administração de um MUD, e gerenciá-los pode ser 
+uma excelente oportunidade de desenvolvimento para estudantes de cursos relacionados a tecnologia. 
+É importante planejar as questões relacionadas à implantação do jogo, incluindo a conexão com a internet 
+e a garantia da segurança dessa conexão com os jogadores, a implementação de novas funcionalidades, a 
+realização de manutenção e correção de erros,  e assim por diante. No entanto, para que isso seja possível, 
+é necessário que o software tenha sido atualizado e esteja funcionando com as tecnologias atuais.
+
+\textcolor{red}{(Verificar se não tem problema fazer essa citação)}
+\begin{citacao}
+    % Este livro não é o princípio e o fim de todos os MUDs. Eu apenas arranhei a superfície do que você pode fazer... ...mas não há absolutamente nenhuma razão para que as tecnologias MUD não possam ser estendidas infinitamente \cite{penton2003mud}.
+    This book isn't the be-all and end-all of MUDs. I've only scratched the surface of what you can do... ...but there's absolutely no reason why MUD technologies can't be extended infinitely \cite{penton2003mud}.
+\end{citacao}
+
+% Frases originais
+% This book isn't the be-all and end-all of MUDs. I've only
+% scratched the surface of what you can do, and you should
+% consider a number of things when thinking about the future.
+
+% Typically MUDs never see more than a few dozen people at
+% a time, a hundred or so at most; but there's absolutely no
+% reason why MUD technologies can't be extended infinitely.
+
+\section{Objetivos}
+
+Este trabalho tem como objetivo principal tornar a base de códigos de um MUD implantável, para que outros 
+estudantes possam explorá-lo e evoluí-lo conforme desejarem. Para isso será necessário:
+
+\begin{itemize}
+    \item Selecionar uma base de códigos de um MUD;
+    \item Analisar a base selecionada;
+    \item Atualizá-la para que ela funcione utilizando tecnologias atuais;
+    \item Criar um ambiente de desenvolvimento onde seja possível realizar um desenvolvimento contínuo da base;
+    \item Relizar manutenções necessária.
+\end{itemize}
+
+Deve-se destacar que este trabalho está sendo desenvolvido em paralelo com uma iniciação científica cujo 
+objetivo é modernizar e implementar um MUD, utilizando uma base de dados relacional. \textcolor{red}{(Coloco isso?)}
+
+\section{Estrutura do Trabalho}
+
+Este trabalho será estruturado da seguinte forma:
+
+\begin{itemize}
+    \item Capítulo \ref{chapter:fundamentacao} - Fundamentação teórica: apresenta os conceitos essenciais 
+    para compreender o trabalho em questão, com enfoque na história e desenvolvimento dos MUDs, bem como 
+    na evolução e manutenção de software;
+    \item Capítulo \ref{chapter:metodologia} - Metodologia: exibe o planejamento metodologico utilizado para 
+    a evolução e manutenção da base de códigos selecionada, assim como o planejamento da metodologia que 
+    será adotada para a próxima etapada do desenvolvimento desse trabalho;
+    \item Capítulo \ref{chapter:resultadosParciais} - Resultados parciais: ilustra os resultados parciais 
+    adquiridos até o momento.
+\end{itemize}
